@@ -1,16 +1,16 @@
 "use client";
-
-import * as React from "react";
-import { MoonIcon, SunIcon } from "@radix-ui/react-icons";
-import { useTheme } from "next-themes";
-import { Button } from "@/components/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+import React from "react";
+import { ModeToggle } from "@/components/ui/theme-toggle";
 
 export default function Home() {
-  return <main className="flex min-h-screen"></main>;
+  return (
+    <main className="flex min-h-screen">
+      <div
+        className="relative justify-end items-end flex flex-col w-full h-full text-center top-4 right-4 "
+        id="theme-toggle"
+      >
+        <ModeToggle />
+      </div>
+    </main>
+  );
 }
