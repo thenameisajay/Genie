@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import { ModeToggle } from "@/components/ui/theme-toggle";
-import HomePage from "@/components/home-page";
+import HomePage from "@/components/ui/home/home-page";
 
 export default function Home() {
   return (
