@@ -12,9 +12,7 @@ export default function Home() {
       >
         <ModeToggle />
       </div>
-      <div className="" id="home-page">
-        <HomePage />
-      </div>
+      <HomePage />
     </main>
   );
 }

@@ -3,7 +3,7 @@ import React, { useState, useRef } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { ArrowCircleUp, ArrowBendDownLeft } from "@phosphor-icons/react";
+import { ArrowCircleUp, ArrowBendDownLeft, Lamp } from "@phosphor-icons/react";
 
 export default function HomePage() {
   const [textValue, setTextValue] = useState<string>("");
@@ -16,9 +16,16 @@ export default function HomePage() {
   return (
     <>
       <div className="flex flex-col  items-center text-center h-screen w-screen  absolute top-36 ">
-        <h1 className="">Genie</h1>
-        <h3>I know All , I see All</h3>
-        <div className=" relative top-20 w-auto h-auto ">
+        <div className=" flex flex-col justify-center items-center">
+          <Lamp size={70} weight="fill" className="mb-5" />
+          <h1 className="text-7xl text-center flex items-center justify-center font-extrabold tracking-tight lg:text-9xl">
+            Genie
+          </h1>
+          <p className="text-xl text-muted-foreground mt-2">
+            A lite version to test multi-modal of Google&apos;s Gemini model.
+          </p>
+        </div>
+        <div className=" relative top-10 w-auto h-auto ">
           <Card className="flex flex-col justify-center items-center h-32  w-screen ">
             <form>
               <div className="flex flex-col  justify-center items-center  p-2 ">
@@ -26,7 +33,7 @@ export default function HomePage() {
                   placeholder=" Ask me anything"
                   value={textValue}
                   onChange={(e) => setTextValue(e.target.value)}
-                  className=" w-72 h-16 px-2 relative  "
+                  className=" w-72 h-16 px-2 relative placeholder:text-base   placeholder:font-semibold  "
                 />
                 <div className="flex flex-row justify-end items-end mt-2  w-64 mr-2">
                   <Button
@@ -56,6 +63,9 @@ export default function HomePage() {
         </div>
         <p>{textValue}</p>
       </div>
+      {/* <footer className="flex justify-end  items-center w-full h-24 border-t">
+        Crafted with ❤️ by <a href="">@thenameisajay</a>
+      </footer> */}
     </>
   );
 }
