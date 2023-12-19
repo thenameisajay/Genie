@@ -21,7 +21,7 @@ const generativeModel = vertex_ai.preview.getGenerativeModel({
 export async function generateContent(message: object) {
   const req = {
     // This is where you specify the input text or the image in terms of objects
-    contents: [{ role: "user", parts: [] }],
+    contents: [{ role: "user", parts: [message] }],
   };
 
   const streamingResp = await generativeModel.generateContentStream(req);
