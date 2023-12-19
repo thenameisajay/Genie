@@ -14,37 +14,41 @@ export default function HomePage() {
         <h1>Genie</h1>
         <h3>I know All , I see All</h3>
         <div className=" relative top-20 w-auto h-auto ">
-          <Card className="flex flex-col justify-center items-center h-32 ">
-            <CardContent>
-              <form>
-                <div className="flex flex-col  justify-center items-center  ">
-                  <Input
-                    placeholder=" Hi I am Genie, Ask me anything"
-                    value={textValue}
-                    onChange={(e) => setTextValue(e.target.value)}
-                    className=" min-w-full "
-                  />
-                  <div className="flex flex-row justify-center items-center mt-2">
-                    <div>
-                      <ArrowCircleUp size={32} weight="thin" />
-                      <Input
-                        id="picture"
-                        type="file"
-                        className="mr-2 ml-2 hidden"
-                      />
-                    </div>
-                    <Button
-                      type="submit"
-                      disabled={textValue.length === 0}
-                      className="ml-2 rounded-full p-2"
-                    >
-                      <ArrowBendDownLeft size={20} weight="fill" />
-                    </Button>
-                  </div>
+          <Card className="flex flex-col justify-center items-center h-32  w-screen ">
+            <form>
+              <div className="flex flex-col  justify-center items-center  p-2 ">
+                <Input
+                  placeholder=" Ask me anything"
+                  value={textValue}
+                  onChange={(e) => setTextValue(e.target.value)}
+                  className=" w-72 h-16 px-2 "
+                />
+                <div className="flex flex-row justify-center items-center mt-2">
+                  <Button
+                    className="rounded-full p-2  border-b-orange-900"
+                    type="button"
+                    onClick={() => {
+                      console.log("upload");
+                    }}
+                  >
+                    <ArrowCircleUp size={20} weight="fill" />
+                    <Input
+                      id="picture"
+                      type="file"
+                      className="mr-2 ml-2 hidden"
+                    />
+                  </Button>
+                  <Button
+                    type="submit"
+                    disabled={textValue.length === 0}
+                    className="ml-2 rounded-full p-2"
+                  >
+                    <ArrowBendDownLeft size={20} weight="fill" />
+                  </Button>
                 </div>
-              </form>
-              <p>{textValue}</p>
-            </CardContent>
+              </div>
+            </form>
+            <p>{textValue}</p>
           </Card>
         </div>
       </div>
