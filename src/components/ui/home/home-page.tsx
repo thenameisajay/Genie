@@ -2,6 +2,8 @@
 import React, { useState, useRef } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+
 import { Button } from "@/components/ui/button";
 import { ArrowCircleUp, ArrowBendDownLeft, Lamp } from "@phosphor-icons/react";
 
@@ -29,12 +31,13 @@ export default function HomePage() {
           <Card className="flex flex-col justify-center items-center h-32 w-96 ">
             <form>
               <div className="flex flex-col  justify-center items-center  w-auto ">
-                <Input
+                <Textarea
                   placeholder=" Ask anything"
                   value={textValue}
                   onChange={(e) => setTextValue(e.target.value)}
-                  className=" w-[23rem] h-16 relative placeholder:text-base  right-1  placeholder:font-semibold border-none top-2 mb-2  "
+                  className=" w-[23.5rem] h-16 relative placeholder:text-base placeholder:font-semibold border-none top-2 mb-2 focus:border-none  "
                 />
+
                 <div className="flex flex-row justify-end items-end mt-2  w-64 mr-2">
                   <Button
                     className="rounded-full p-2  w-10 h-10   bg-amber-900"
