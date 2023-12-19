@@ -27,15 +27,15 @@ export default function HomePage() {
             A lite version to test Google&apos;s Gemini model.
           </p>
         </div>
-        <div className=" relative top-10 w-auto h-auto  ">
-          <Card className="flex flex-col justify-center items-center h-32 w-96 ">
+        <div className=" relative top-10 w-auto h-auto">
+          <Card className="flex flex-col justify-center items-center h-32 w-screen ">
             <form>
               <div className="flex flex-col  justify-center items-center  w-auto ">
                 <Textarea
                   placeholder=" Ask anything"
                   value={textValue}
                   onChange={(e) => setTextValue(e.target.value)}
-                  className=" w-[23.5rem] h-16 relative placeholder:text-base placeholder:font-semibold border-none top-2 mb-2 focus:border-none  "
+                  className="  h-16 relative placeholder:text-base placeholder:font-semibold border-none top-2 mb-2 focus:border-none  "
                 />
 
                 <div className="flex flex-row justify-end items-end mt-2  w-64 mr-2">
