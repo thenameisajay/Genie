@@ -22,7 +22,7 @@ export default function HomePage() {
             Genie
           </h1>
           <p className="text-xl text-muted-foreground mt-2">
-            A lite version to test multi-modal of Google&apos;s Gemini model.
+            A lite version to test Google&apos;s Gemini model.
           </p>
         </div>
         <div className=" relative top-10 w-auto h-auto ">
