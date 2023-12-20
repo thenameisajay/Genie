@@ -11,8 +11,8 @@ export default function HomePage() {
   const [textValue, setTextValue] = useState<string>("");
 
   const handleButtonClick = () => {
-    // const fileInput = document.getElementById("picture");
-    // fileInput?.click();
+    const fileInput = document.getElementById("picture");
+    fileInput?.click();
     const geminiTalk = run();
     console.log(geminiTalk);
   };
