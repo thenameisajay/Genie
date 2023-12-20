@@ -3,16 +3,18 @@ import React, { useState, useRef } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-
 import { Button } from "@/components/ui/button";
 import { ArrowCircleUp, ArrowBendDownLeft, Lamp } from "@phosphor-icons/react";
+import { run } from "@/lib/gemini";
 
 export default function HomePage() {
   const [textValue, setTextValue] = useState<string>("");
 
   const handleButtonClick = () => {
-    const fileInput = document.getElementById("picture");
-    fileInput?.click();
+    // const fileInput = document.getElementById("picture");
+    // fileInput?.click();
+    const geminiTalk = run();
+    console.log(geminiTalk);
   };
 
   return (
