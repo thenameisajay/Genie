@@ -13,8 +13,8 @@ export default function HomePage() {
   const handleButtonClick = () => {
     const fileInput = document.getElementById("picture");
     fileInput?.click();
-    const geminiTalk = run();
-    console.log(geminiTalk);
+    // const geminiTalk = run();
+    // console.log(geminiTalk);
   };
 
   return (
