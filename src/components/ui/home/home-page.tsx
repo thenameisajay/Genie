@@ -13,8 +13,8 @@ export default function HomePage() {
   const handleButtonClick = () => {
     const fileInput = document.getElementById("picture");
     fileInput?.click();
-    // const geminiTalk = run();
-    // console.log(geminiTalk);
+    const geminiTalk = run();
+    console.log(geminiTalk);
   };
 
   return (
@@ -30,7 +30,7 @@ export default function HomePage() {
           </p>
         </div>
         <div className=" relative top-10 w-auto h-auto">
-          <Card className="flex flex-col justify-center items-center h-32 w-screen ">
+          <Card className="flex flex-col justify-center items-center h-auto w-screen ">
             <form>
               <div className="flex flex-col  justify-center items-center  w-auto ">
                 <Textarea
