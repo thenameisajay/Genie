@@ -19,7 +19,7 @@ export default function HomePage() {
 
   return (
     <>
-      <div className="flex flex-col  items-center text-center  absolute top-36 ">
+      <div className="flex flex-col  items-center text-center w-dvw absolute top-36 ">
         <div className=" flex flex-col justify-center items-center">
           <Lamp size={70} weight="fill" className="mb-5" />
           <h1 className="text-7xl text-center flex items-center justify-center font-extrabold tracking-tight lg:text-9xl">

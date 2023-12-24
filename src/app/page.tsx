@@ -5,7 +5,7 @@ import HomePage from "@/components/ui/home/home-page";
 
 export default function Home() {
   return (
-    <main className="flex min-h-dvh  flex-col">
+    <main className="flex min-h-dvh w-dvw  flex-col">
       <div
         className="relative justify-end items-end flex flex-col w-full h-full text-center top-4 right-4 "
         id="theme-toggle"
