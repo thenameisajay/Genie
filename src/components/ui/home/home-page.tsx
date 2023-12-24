@@ -25,8 +25,9 @@ export default function HomePage() {
 
   const handleSubmit = (event: any) => {
     event.preventDefault();
+
+    // Pack text and images into an object called message and send it to the api
     try {
-      // Pack text and images into an object called message and send it to the api
       if (base64Images === undefined || base64Images.length == 0) {
         const message = {
           text: textValue.trim(),
@@ -131,7 +132,11 @@ export default function HomePage() {
             </form>
           </Card>
           <div className="flex flex-col justify-center items-center relative mt-3">
-            <ResponseComponent response={response} />
+            {response.length > 0 ? (
+              <>
+                <ResponseComponent response={response} />
+              </>
+            ) : null}
           </div>
         </div>
       </div>
