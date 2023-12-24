@@ -1,21 +1,53 @@
 "use client";
-import React, { useState, useRef } from "react";
-import { Card, CardContent } from "@/components/ui/card";
+import React, { useState } from "react";
+
+import toast from "react-hot-toast";
+import { ArrowCircleUp, ArrowBendDownLeft, Lamp } from "@phosphor-icons/react";
+
+import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
-import { ArrowCircleUp, ArrowBendDownLeft, Lamp } from "@phosphor-icons/react";
-import { run } from "@/lib/gemini";
+
+import { imageToBase64 } from "@/lib/actions";
 
 export default function HomePage() {
   const [textValue, setTextValue] = useState<string>("");
+  const [base64Images, setBase64Images] = useState<string[]>([]);
 
   const handleButtonClick = () => {
     const fileInput = document.getElementById("picture");
     fileInput?.click();
   };
 
-  const handleSubmit = () => {};
+  const handleSubmit = (event: any) => {
+    event.preventDefault();
+  };
+
+  const handleImages = (event: React.ChangeEvent<HTMLInputElement>) => {
+    // Add multiple images at once
+    let files = event.target.files;
+    console.log(files);
+    if (files && files.length > 0) {
+      toast.success("Files selected");
+
+      // Convert to base64 using for loop and function from lib/actions and set state to array of base64 images
+
+      for (let i = 0; i < files.length; i++) {}
+
+      const base64ImagesArray: string[] = [];
+      for (let i = 0; i < files.length; i++) {
+        imageToBase64(files[i]).then((base64Image) => {
+          base64ImagesArray.push(base64Image as string);
+          setBase64Images(base64ImagesArray);
+        });
+      }
+    } else {
+      toast.error("No files selected");
+    }
+  };
+
+  console.log("Base 64 Images", base64Images);
 
   return (
     <>
@@ -30,8 +62,8 @@ export default function HomePage() {
           </p>
         </div>
         <div className=" relative top-10 w-auto h-auto">
-          <Card className="flex flex-col justify-center items-center h-auto px-2">
-            <form>
+          <Card className="flex flex-col justify-center items-center h-auto px-2  sm:w-96">
+            <form onSubmit={handleSubmit}>
               <div className="flex flex-col  justify-center items-center  w-auto ">
                 <Textarea
                   placeholder=" Ask anything"
@@ -50,6 +82,9 @@ export default function HomePage() {
                     <Input
                       id="picture"
                       type="file"
+                      accept="image/*"
+                      multiple
+                      onChange={handleImages}
                       className="mr-2 ml-2"
                       style={{ display: "none" }}
                     />
