@@ -131,7 +131,8 @@ export default function HomePage() {
               </div>
             </form>
           </Card>
-          <div className="flex flex-col justify-center items-center relative mt-3">
+          <div className="flex flex-col justify-center items-center  relative mt-10 mx-3">
+            <ResponseComponent response={response} />
             {response.length > 0 ? (
               <>
                 <ResponseComponent response={response} />
