@@ -29,7 +29,7 @@ export default function HomePage() {
       // Pack text and images into an object called message and send it to the api
       if (base64Images === undefined || base64Images.length == 0) {
         const message = {
-          text: textValue,
+          text: textValue.trim(),
         };
 
         const data = run(message).then((response) => {
@@ -39,14 +39,13 @@ export default function HomePage() {
         console.log(data);
       } else {
         const message = {
-          text: textValue,
+          text: textValue.trim(),
           images: base64Images,
         };
 
         run(message)
           .then((response) => {
             console.log("Response", response);
-            // setResponse(response);
           })
           .catch((error) => {
             console.log("Error", error);
