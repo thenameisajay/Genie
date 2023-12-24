@@ -32,10 +32,11 @@ export default function HomePage() {
           text: textValue,
         };
 
-        run(message).then((response) => {
+        const data = run(message).then((response) => {
           console.log("Response", response);
-          setResponse(response);
+          // setResponse(response);
         });
+        console.log(data);
       } else {
         const message = {
           text: textValue,
@@ -45,7 +46,7 @@ export default function HomePage() {
         run(message)
           .then((response) => {
             console.log("Response", response);
-            setResponse(response);
+            // setResponse(response);
           })
           .catch((error) => {
             console.log("Error", error);
@@ -81,7 +82,7 @@ export default function HomePage() {
 
   return (
     <>
-      <div className="flex flex-col  items-center text-center w-dvw absolute top-36 ">
+      <div className="flex flex-col  items-center text-center w-dvw absolute top-20 ">
         <div className=" flex flex-col justify-center items-center">
           <Lamp size={70} weight="fill" className="mb-5" />
           <h1 className="text-7xl text-center flex items-center justify-center font-extrabold tracking-tight lg:text-9xl">
@@ -130,10 +131,10 @@ export default function HomePage() {
               </div>
             </form>
           </Card>
+          <div className="flex flex-col justify-center items-center relative mt-3">
+            <ResponseComponent response={response} />
+          </div>
         </div>
-      </div>
-      <div className="flex flex-col justify-center items-center w-dvw absolute bottom-28">
-        <ResponseComponent response={response} />
       </div>
     </>
   );
