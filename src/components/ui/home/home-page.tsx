@@ -11,6 +11,7 @@ import { Button } from "@/components/ui/button";
 
 import { imageToBase64 } from "@/lib/actions";
 import { run } from "@/lib/gemini";
+import ResponseComponent from "@/components/ui/response-component";
 
 export default function HomePage() {
   const [textValue, setTextValue] = useState<string>("");
@@ -50,6 +51,8 @@ export default function HomePage() {
             console.log("Error", error);
           });
       }
+      setBase64Images([]);
+      setTextValue("");
     } catch (error) {
       console.log("Failed to send message");
     }
@@ -128,6 +131,9 @@ export default function HomePage() {
             </form>
           </Card>
         </div>
+      </div>
+      <div className="flex flex-col justify-center items-center w-dvw absolute bottom-28">
+        <ResponseComponent response={response} />
       </div>
     </>
   );
