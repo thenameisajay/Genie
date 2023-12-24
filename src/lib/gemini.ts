@@ -20,6 +20,14 @@ export async function run(message: Object) {
   const model = genAI.getGenerativeModel({ model: modelChoice });
 
   if (modelChoice === "gemini-pro-vision") {
+    const prompt = (message as { text: string }).text;
+    console.log("prompt", prompt);
+    const result = await model.generateContent([
+      prompt,
+      message as { images: string }, // Have to test it as it is not in the docs
+    ]);
+    const response = await result.response;
+    const text = response.text();
   } else {
     const prompt = (message as { text: string }).text;
 
