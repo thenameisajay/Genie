@@ -5,7 +5,7 @@ import HomePage from "@/components/ui/home/home-page";
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col">
+    <main className="flex min-h-dvh  flex-col">
       <div
         className="relative justify-end items-end flex flex-col w-full h-full text-center top-4 right-4 "
         id="theme-toggle"
@@ -13,6 +13,17 @@ export default function Home() {
         <ModeToggle />
       </div>
       <HomePage />
+      <footer className=" absolute w-dvw bottom-0  text-center mx-auto">
+        <p className="leading-7 [&:not(:first-child)]:mt-6">
+          Crafted with ❤️ by{" "}
+          <a
+            className="text-amber-900 font-sans font-semibold"
+            href="https://github.com/thenameisajay"
+          >
+            @thenameisajay
+          </a>
+        </p>
+      </footer>
     </main>
   );
 }

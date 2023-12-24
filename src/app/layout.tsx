@@ -8,7 +8,7 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "Genie",
   description:
-    "This is an lite version of ChatGPT - where you can chat and query images with AI models, Built with Privacy in mind.",
+    "This is an lite version of Gemini API Models - where you can chat and query images with AI models, Built with Privacy in mind.",
 };
 
 export default function RootLayout({

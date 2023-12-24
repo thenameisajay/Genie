@@ -15,9 +15,11 @@ export default function HomePage() {
     fileInput?.click();
   };
 
+  const handleSubmit = () => {};
+
   return (
     <>
-      <div className="flex flex-col  items-center text-center h-dvh w-dvw absolute top-36 ">
+      <div className="flex flex-col  items-center text-center  absolute top-36 ">
         <div className=" flex flex-col justify-center items-center">
           <Lamp size={70} weight="fill" className="mb-5" />
           <h1 className="text-7xl text-center flex items-center justify-center font-extrabold tracking-tight lg:text-9xl">
@@ -48,7 +50,7 @@ export default function HomePage() {
                     <Input
                       id="picture"
                       type="file"
-                      className="mr-2 ml-2  "
+                      className="mr-2 ml-2"
                       style={{ display: "none" }}
                     />
                   </Button>
@@ -66,9 +68,6 @@ export default function HomePage() {
         </div>
         <p>{textValue}</p>
       </div>
-      {/* <footer className="flex justify-end  items-center w-full h-24 border-t">
-        Crafted with ❤️ by <a href="">@thenameisajay</a>
-      </footer> */}
     </>
   );
 }
