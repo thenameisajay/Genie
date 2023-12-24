@@ -10,10 +10,12 @@ import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 
 import { imageToBase64 } from "@/lib/actions";
+import { run } from "@/lib/gemini";
 
 export default function HomePage() {
   const [textValue, setTextValue] = useState<string>("");
   const [base64Images, setBase64Images] = useState<string[]>([]);
+  const [response, setResponse] = useState<string>("");
 
   const handleButtonClick = () => {
     const fileInput = document.getElementById("picture");
@@ -22,6 +24,35 @@ export default function HomePage() {
 
   const handleSubmit = (event: any) => {
     event.preventDefault();
+    try {
+      // Pack text and images into an object called message and send it to the api
+      if (base64Images === undefined || base64Images.length == 0) {
+        const message = {
+          text: textValue,
+        };
+
+        run(message).then((response) => {
+          console.log("Response", response);
+          setResponse(response);
+        });
+      } else {
+        const message = {
+          text: textValue,
+          images: base64Images,
+        };
+
+        run(message)
+          .then((response) => {
+            console.log("Response", response);
+            setResponse(response);
+          })
+          .catch((error) => {
+            console.log("Error", error);
+          });
+      }
+    } catch (error) {
+      console.log("Failed to send message");
+    }
   };
 
   const handleImages = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -32,8 +63,6 @@ export default function HomePage() {
       toast.success("Files selected");
 
       // Convert to base64 using for loop and function from lib/actions and set state to array of base64 images
-
-      for (let i = 0; i < files.length; i++) {}
 
       const base64ImagesArray: string[] = [];
       for (let i = 0; i < files.length; i++) {
@@ -46,8 +75,6 @@ export default function HomePage() {
       toast.error("No files selected");
     }
   };
-
-  console.log("Base 64 Images", base64Images);
 
   return (
     <>
@@ -80,13 +107,13 @@ export default function HomePage() {
                   >
                     <ArrowCircleUp size={25} weight="fill" />
                     <Input
+                      className="mr-2 ml-2"
                       id="picture"
                       type="file"
-                      accept="image/*"
-                      multiple
+                      accept="image/jpeg, image/png , image/jpg"
                       onChange={handleImages}
-                      className="mr-2 ml-2"
                       style={{ display: "none" }}
+                      multiple
                     />
                   </Button>
                   <Button
@@ -101,7 +128,6 @@ export default function HomePage() {
             </form>
           </Card>
         </div>
-        <p>{textValue}</p>
       </div>
     </>
   );
