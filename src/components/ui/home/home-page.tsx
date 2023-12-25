@@ -84,6 +84,8 @@ export default function HomePage() {
     }
   };
 
+  console.log("Is it loading", loading);
+
   return (
     <>
       <div className="flex flex-col  items-center text-center w-dvw absolute top-20 ">
@@ -138,9 +140,9 @@ export default function HomePage() {
         </div>
         <div className="flex flex-col justify-center items-center  w-auto relative mx-3 top-16">
           {/* <ResponseComponent response={response} /> */}
-          {response.length === 0 ? (
+          {response.length > 0 ? (
             <>
-              {!loading ? (
+              {loading ? (
                 <>
                   <ResponseComponent response={response} />
                 </>
