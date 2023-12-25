@@ -16,8 +16,8 @@ export default function Home() {
         id="theme-toggle"
       >
         <APIKEY />
-        <Personality />
-        <Configuration />
+        {/* <Personality />
+        <Configuration /> */}
         <ModeToggle />
       </div>
       <HomePage />

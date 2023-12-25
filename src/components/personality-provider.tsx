@@ -39,13 +39,14 @@ export function Personality() {
     }
   }
 
-  // Clear the local storage when the page is loaded , one time use only
-  useEffect(() => {
+  function clearSettings() {
     if (localStorage.getItem("token") || localStorage.getItem("safety")) {
       localStorage?.removeItem("token");
       localStorage?.removeItem("safety");
     }
-  }, []);
+  }
+
+  // Clear the local storage when the page is loaded , one time use only
 
   return (
     <div className="relative mr-4 top-1">
@@ -98,9 +99,22 @@ export function Personality() {
             </div>
           </div>
           <DialogFooter>
-            <Button type="submit" onClick={() => saveSettings()}>
-              Save changes
-            </Button>
+            <div className="flex flex-row">
+              <Button
+                type="button"
+                className="mr-1"
+                onClick={() => clearSettings()}
+              >
+                Clear changes
+              </Button>
+              <Button
+                type="submit"
+                className="ml-1"
+                onClick={() => saveSettings()}
+              >
+                Save changes
+              </Button>
+            </div>
           </DialogFooter>
         </DialogContent>
       </Dialog>

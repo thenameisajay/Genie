@@ -16,6 +16,7 @@ import ResponseComponent from "@/components/ui/response-component";
 export default function HomePage() {
   const [textValue, setTextValue] = useState<string>("");
   const [imageParts, setImageParts] = useState<Array<Object>>([]);
+  const [apikeys, setApikeys] = useState<string>("");
   const [response, setResponse] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
   const [safety, setSafety] = useState<string>("");
@@ -26,16 +27,31 @@ export default function HomePage() {
     fileInput?.click();
   };
 
+  useEffect(() => {
+    getValues();
+  }, []);
+
+  const getValues = async () => {
+    if (localStorage !== undefined) {
+      console.log("running");
+      // Check for configuration settings
+      if (localStorage.getItem("apikey")) {
+        console.log("running here");
+        console.log(localStorage.getItem("apikey"));
+        await setApikeys(localStorage.getItem("apikey") || "");
+      }
+
+      if (localStorage.getItem("token") || localStorage.getItem("safety")) {
+        console.log("running here now");
+        await setToken(localStorage.getItem("token") || "");
+        await setSafety(localStorage.getItem("safety") || "");
+      }
+    }
+  };
+
   const handleSubmit = (event: any) => {
     event.preventDefault();
     setLoading(true);
-
-    // Check for configuration settings
-
-    if (localStorage.getItem("token") || localStorage.getItem("safety")) {
-      setToken(localStorage.getItem("token") || "");
-      setSafety(localStorage.getItem("safety") || "");
-    }
 
     // Packing text and images into an object called message and send it to the api
     try {
@@ -44,7 +60,7 @@ export default function HomePage() {
           text: textValue.trim(),
         };
 
-        run(message).then((response) => {
+        run(message, apikeys).then((response) => {
           setResponse(response);
         });
       } else {
@@ -54,7 +70,7 @@ export default function HomePage() {
         };
 
         // Take the message object and send it to the api
-        run(message)
+        run(message, apikeys)
           .then((response) => {
             if (response.length > 0 && response !== undefined) {
               setResponse(response);

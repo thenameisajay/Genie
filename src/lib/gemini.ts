@@ -1,9 +1,15 @@
+"use client";
 const { GoogleGenerativeAI } = require("@google/generative-ai");
 
-// Access your API key as an environment variable
-const genAI = new GoogleGenerativeAI(process.env.NEXT_PUBLIC_GEMINI_API_KEY);
+export async function run(message: Object, apikey: string) {
+  console.log("API KEY = ", apikey);
 
-export async function run(message: Object) {
+  const genAI = new GoogleGenerativeAI(
+    apikey || process.env.NEXT_PUBLIC_GEMINI_API_KEY
+  );
+
+  console.log(genAI);
+
   const modelsAvailable = ["gemini-pro", "gemini-pro-vision"];
 
   const modelChoice =
