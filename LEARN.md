@@ -1,15 +1,23 @@
 
-
-
-
 # GENIE 
 
+## LINK:  https://genie-rho.vercel.app/
+
+
+## Features :
+- Generate text from text input and also from images (Automatically switches between the two models).
+- Test your Gemini API key
+- Configure the model based on token and safety parameters (Coming soon..)
+- Give the model personality by tweaking the prompts (Coming soon..)
 
 ## Note :
 
 - Only Available in the selected regions. See the list of available regions here: https://ai.google.dev/available_regions
+- Models that can be tested :
+   - Gemini Pro
+   - Gemini Pro Vision
 
-- Response from the api is slow at times especially when using the vision api. Once it is available in the UK, I will try to optimise the app for better performance.
+- Response from the api is slow at times especially when using the pro vision model. Once it is available in the UK, I will try to optimise the app for better performance.
 
 ## Description
 
