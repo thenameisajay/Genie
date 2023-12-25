@@ -35,7 +35,7 @@ export default function HomePage() {
           text: textValue.trim(),
         };
 
-        const data = run(message).then((response) => {
+        run(message).then((response) => {
           setResponse(response);
         });
       } else {
