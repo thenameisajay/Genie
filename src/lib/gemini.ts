@@ -11,9 +11,9 @@ export async function run(message: Object) {
   const modelChoice =
     Object.keys(message).length === 1 ? modelsAvailable[0] : modelsAvailable[1];
 
-  console.log("Model-Choice: ", modelChoice);
-
   const model = genAI.getGenerativeModel({ model: modelChoice });
+
+  console.log("The model is: ", model);
 
   if (modelChoice === "gemini-pro-vision") {
     const prompt = (message as { text: string }).text;
@@ -30,7 +30,7 @@ export async function run(message: Object) {
     console.log("The prompt is: ", prompt);
 
     const result = await model.generateContent(prompt);
-    const response = await result.respone;
+    const response = await result.response;
 
     console.log("The response is before text: ", response);
     const text = response.text();
