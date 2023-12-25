@@ -31,6 +31,13 @@ export function Configuration() {
 
   function saveSettings() {
     console.log("Saving settings");
+
+    // Use Local Storage to save the settings and retrieve them in the Home Page , later change it to useContext
+
+    if (token !== undefined && token !== null && token !== "") {
+      localStorage.setItem("token", token);
+      localStorage.setItem("safety", safety);
+    }
   }
 
   return (
