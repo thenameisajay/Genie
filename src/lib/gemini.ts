@@ -17,7 +17,7 @@ export async function run(message: Object) {
     console.log("The Message is :", message);
     console.log("The Prompt is :", prompt);
 
-    const imageParts = (message as { image: Array<Object> }).image;
+    const { imageParts } = message as { imageParts: Array<Object> };
 
     console.log("The Image Parts are :", imageParts);
 
