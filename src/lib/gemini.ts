@@ -33,6 +33,8 @@ export async function run(message: Object) {
     const response = await result.respone;
     const text = response.text();
 
+    console.log("The response is: ", text);
+
     return text;
   }
 }
