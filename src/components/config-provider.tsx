@@ -42,7 +42,8 @@ export function Configuration() {
   // Clear the local storage when the page is loaded , one time use only
   useEffect(() => {
     if (localStorage.getItem("token") || localStorage.getItem("safety")) {
-      localStorage.clear();
+      localStorage?.removeItem("token");
+      localStorage?.removeItem("safety");
     }
   }, []);
 
