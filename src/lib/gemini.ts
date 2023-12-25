@@ -18,7 +18,7 @@ export async function run(message: Object) {
 
     const result = await model.generateContent([prompt, ...imageParts]);
 
-    console.log("From the API Talk", result);
+    console.log("From the API  RESULT = ", result);
 
     const response = await result.response;
     const text = response?.text();
