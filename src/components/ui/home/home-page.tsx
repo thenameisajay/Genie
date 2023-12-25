@@ -66,7 +66,7 @@ export default function HomePage() {
   const handleImages = (event: React.ChangeEvent<HTMLInputElement>) => {
     // Add multiple images at once
     let files = event.target.files;
-    console.log(files);
+
     if (files && files.length > 0) {
       toast.success(` ${files.length} Files selected`);
 
@@ -138,7 +138,7 @@ export default function HomePage() {
         </div>
         <div className="flex flex-col justify-center items-center  w-auto relative mx-3 top-16">
           {/* <ResponseComponent response={response} /> */}
-          {loading ? (
+          {loading && response === undefined ? (
             <>
               <p className="text-xl text-muted-foreground mt-2 animate-pulse">
                 Generating response...
