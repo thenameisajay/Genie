@@ -29,7 +29,7 @@ export default function HomePage() {
 
   useEffect(() => {
     getValues();
-  }, []);
+  }, [textValue, imageParts]);
 
   const getValues = async () => {
     if (localStorage !== undefined) {
@@ -52,6 +52,7 @@ export default function HomePage() {
   const handleSubmit = (event: any) => {
     event.preventDefault();
     setLoading(true);
+    getValues();
 
     // Packing text and images into an object called message and send it to the api
     try {
