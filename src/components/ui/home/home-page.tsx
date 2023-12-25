@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import toast, { Toaster } from "react-hot-toast";
 import { ArrowCircleUp, ArrowBendDownLeft, Lamp } from "@phosphor-icons/react";
@@ -18,6 +18,8 @@ export default function HomePage() {
   const [imageParts, setImageParts] = useState<Array<Object>>([]);
   const [response, setResponse] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
+  const [safety, setSafety] = useState<string>("");
+  const [token, setToken] = useState<string>("");
 
   const handleButtonClick = () => {
     const fileInput = document.getElementById("picture");
@@ -27,6 +29,13 @@ export default function HomePage() {
   const handleSubmit = (event: any) => {
     event.preventDefault();
     setLoading(true);
+
+    // Check for configuration settings
+
+    if (localStorage.getItem("token") || localStorage.getItem("safety")) {
+      setToken(localStorage.getItem("token") || "");
+      setSafety(localStorage.getItem("safety") || "");
+    }
 
     // Packing text and images into an object called message and send it to the api
     try {
@@ -84,8 +93,6 @@ export default function HomePage() {
       toast.error("No files selected");
     }
   };
-
-  console.log("Is it loading", loading);
 
   return (
     <>
