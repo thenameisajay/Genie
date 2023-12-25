@@ -11,8 +11,11 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Sliders, GearSix } from "@phosphor-icons/react";
+import toast from "react-hot-toast";
 
 export function Configuration() {
+  const options = ["Safe", "Moderate", "Risky"];
+
   return (
     <div className="relative mr-4 top-1">
       <Dialog>
@@ -24,28 +27,39 @@ export function Configuration() {
         </DialogTrigger>
         <DialogContent className="sm:max-w-[425px]">
           <DialogHeader>
-            <DialogTitle>Edit profile</DialogTitle>
+            <DialogTitle>Model Configuration </DialogTitle>
             <DialogDescription>
-              Make changes to your profile here. Click save when you&aposre
-              done.
+              Make changes to the model here and save them to test the variation
+              best suited for your needs.
+              <br />
+              <strong>Work on Progress 🚧</strong>
             </DialogDescription>
           </DialogHeader>
           <div className="grid gap-4 py-4">
             <div className="grid grid-cols-4 items-center gap-4">
               <Label htmlFor="name" className="text-right">
-                Name
+                Max Output Tokens
               </Label>
-              <Input id="name" value="Pedro Duarte" className="col-span-3" />
+              <Input id="name" value=" " className="col-span-3" />
             </div>
             <div className="grid grid-cols-4 items-center gap-4">
               <Label htmlFor="username" className="text-right">
-                Username
+                Safety
               </Label>
-              <Input id="username" value="@peduarte" className="col-span-3" />
+              <select id="safety" className="col-span-3">
+                {options.map((option) => (
+                  <option key={option}>{option}</option>
+                ))}
+              </select>
             </div>
           </div>
           <DialogFooter>
-            <Button type="submit">Save changes</Button>
+            <Button
+              type="submit"
+              onClick={() => toast.success("Changes saved successfully!")}
+            >
+              Save changes
+            </Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>
