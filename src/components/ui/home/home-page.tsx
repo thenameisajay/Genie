@@ -35,7 +35,7 @@ export default function HomePage() {
 
         const data = run(message).then((response) => {
           console.log("Response", response);
-          // setResponse(response);
+          setResponse(response);
         });
         console.log(data);
       } else {
@@ -132,7 +132,7 @@ export default function HomePage() {
             </form>
           </Card>
           <div className="flex flex-col justify-center items-center  relative mt-10 mx-3">
-            <ResponseComponent response={response} />
+            {/* <ResponseComponent response={response} /> */}
             {response.length > 0 ? (
               <>
                 <ResponseComponent response={response} />
