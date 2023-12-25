@@ -52,7 +52,6 @@ export function Personality() {
       <Dialog>
         <DialogTrigger asChild>
           <Button variant="outline" className="h-10">
-            {/* <Sliders size={32} weight="fill" /> */}
             <UserSwitch size={36} color="#22b995" weight="duotone" />
           </Button>
         </DialogTrigger>
