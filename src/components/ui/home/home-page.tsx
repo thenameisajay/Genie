@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 
-import toast from "react-hot-toast";
+import toast, { Toaster } from "react-hot-toast";
 import { ArrowCircleUp, ArrowBendDownLeft, Lamp } from "@phosphor-icons/react";
 
 import { Card } from "@/components/ui/card";
@@ -89,6 +89,7 @@ export default function HomePage() {
 
   return (
     <>
+      <Toaster />
       <div className="flex flex-col  items-center text-center w-dvw absolute top-20 ">
         <div className=" flex flex-col justify-center items-center">
           <Lamp size={70} weight="fill" className="mb-5" />
