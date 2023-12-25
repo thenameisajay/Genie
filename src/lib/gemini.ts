@@ -23,7 +23,7 @@ export async function run(message: Object) {
       message as { images: string }, // Have to test it as it is not in the docs
     ]);
     const response = await result.response;
-    const text = response.text();
+    const text = response?.text();
   } else {
     const prompt = (message as { text: string }).text;
 
@@ -33,7 +33,7 @@ export async function run(message: Object) {
     const response = await result.response;
 
     console.log("The response is before text: ", response);
-    const text = response.text();
+    const text = response?.text();
 
     console.log("The text is: ", text);
 
