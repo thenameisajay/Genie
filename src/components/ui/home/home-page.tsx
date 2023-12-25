@@ -9,13 +9,13 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 
-import { imageToBase64 } from "@/lib/actions";
+import { fileToGenerativePart } from "@/lib/actions";
 import { run } from "@/lib/gemini";
 import ResponseComponent from "@/components/ui/response-component";
 
 export default function HomePage() {
   const [textValue, setTextValue] = useState<string>("");
-  const [base64Images, setBase64Images] = useState<string[]>([]);
+  const [imageParts, setImageParts] = useState<Array<Object>>([]);
   const [response, setResponse] = useState<string>("");
 
   const handleButtonClick = () => {
@@ -28,7 +28,7 @@ export default function HomePage() {
 
     // Pack text and images into an object called message and send it to the api
     try {
-      if (base64Images === undefined || base64Images.length == 0) {
+      if (imageParts === undefined || imageParts.length == 0) {
         const message = {
           text: textValue.trim(),
         };
@@ -41,7 +41,7 @@ export default function HomePage() {
       } else {
         const message = {
           text: textValue.trim(),
-          images: base64Images,
+          imageParts: imageParts,
         };
 
         run(message)
@@ -52,7 +52,7 @@ export default function HomePage() {
             console.log("Error", error);
           });
       }
-      setBase64Images([]);
+      setImageParts([]);
       setTextValue("");
     } catch (error) {
       console.log("Failed to send message");
@@ -64,15 +64,15 @@ export default function HomePage() {
     let files = event.target.files;
     console.log(files);
     if (files && files.length > 0) {
-      toast.success("Files selected");
+      toast.success(` ${files.length} Files selected`);
 
-      // Convert to base64 using for loop and function from lib/actions and set state to array of base64 images
+      // Convert to generative parts and store in an array of objects
 
-      const base64ImagesArray: string[] = [];
+      const generativePart: Array<Object> = [];
       for (let i = 0; i < files.length; i++) {
-        imageToBase64(files[i]).then((base64Image) => {
-          base64ImagesArray.push(base64Image as string);
-          setBase64Images(base64ImagesArray);
+        fileToGenerativePart(files[i]).then((base64Image) => {
+          generativePart.push(base64Image);
+          setImageParts(generativePart);
         });
       }
     } else {
