@@ -1,3 +1,7 @@
+"use client";
+
+import React, { useState } from "react";
+
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -10,11 +14,24 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+
 import { Sliders, GearSix } from "@phosphor-icons/react";
 import toast from "react-hot-toast";
 
 export function Configuration() {
   const options = ["Safe", "Moderate", "Risky"];
+
+  const [token, setToken] = useState<string>("");
+
+  const [safety, setSafety] = useState<string>("Safe");
+
+  console.log("token", token);
+
+  console.log("safety", safety);
+
+  function saveSettings() {
+    console.log("Saving settings");
+  }
 
   return (
     <div className="relative mr-4 top-1">
@@ -37,16 +54,26 @@ export function Configuration() {
           </DialogHeader>
           <div className="grid gap-4 py-4">
             <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="name" className="text-right">
+              <Label htmlFor="tokens" className="text-right">
                 Max Output Tokens
               </Label>
-              <Input id="name" value=" " className="col-span-3" />
+              <Input
+                id="tokens"
+                value={token}
+                onChange={(e) => setToken(e.target.value)}
+                className="col-span-3"
+              />
             </div>
             <div className="grid grid-cols-4 items-center gap-4">
               <Label htmlFor="username" className="text-right">
                 Safety
               </Label>
-              <select id="safety" className="col-span-3">
+              <select
+                id="safety"
+                className="col-span-3"
+                value={safety}
+                onChange={(e) => setSafety(e.target.value)}
+              >
                 {options.map((option) => (
                   <option key={option}>{option}</option>
                 ))}
