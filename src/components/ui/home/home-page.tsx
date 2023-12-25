@@ -28,7 +28,7 @@ export default function HomePage() {
     event.preventDefault();
     setLoading(true);
 
-    // Pack text and images into an object called message and send it to the api
+    // Packing text and images into an object called message and send it to the api
     try {
       if (imageParts === undefined || imageParts.length == 0) {
         const message = {
