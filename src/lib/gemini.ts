@@ -31,9 +31,11 @@ export async function run(message: Object) {
 
     const result = await model.generateContent(prompt);
     const response = await result.respone;
+
+    console.log("The response is before text: ", response);
     const text = response.text();
 
-    console.log("The response is: ", text);
+    console.log("The text is: ", text);
 
     return text;
   }
