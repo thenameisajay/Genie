@@ -48,7 +48,6 @@ export default function HomePage() {
         run(message)
           .then((response) => {
             if (response.length > 0 && response !== undefined) {
-              setLoading(false);
               setResponse(response);
             }
           })
@@ -58,6 +57,7 @@ export default function HomePage() {
       }
       setImageParts([]);
       setTextValue("");
+      setLoading(false);
     } catch (error) {
       console.log("Failed to send message");
     }
