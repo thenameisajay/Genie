@@ -151,7 +151,31 @@ export default function HomePage() {
             <>
               <ResponseComponent response={response} />
             </>
-          ) : null}
+          ) : (
+            <div className="mb-2">
+              <p className="text-xl text-muted-foreground mt-2 ">Note:</p>
+              <ul className="text-start">
+                <li>
+                  ⌛ Response from the api may take some time especially if
+                  images are multiple.
+                </li>
+                <li>
+                  🌏 The app works only in{" "}
+                  <a
+                    href="https://ai.google.dev/available_regions"
+                    className="text-blue-500"
+                  >
+                    available
+                  </a>{" "}
+                  regions due to api restrictions.
+                </li>
+                <li>
+                  🧪 This app was built only for testing purposes and is not
+                  intended to be used in production.
+                </li>
+              </ul>
+            </div>
+          )}
 
           <footer className=" relative text-center mx-auto">
             <p className="leading-7 [&:not(:first-child)]:mt-6">
