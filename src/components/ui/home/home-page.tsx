@@ -138,16 +138,17 @@ export default function HomePage() {
         </div>
         <div className="flex flex-col justify-center items-center  w-auto relative mx-3 top-16">
           {/* <ResponseComponent response={response} /> */}
-          {loading && response === undefined ? (
+          {response.length === 0 ? (
             <>
-              <p className="text-xl text-muted-foreground mt-2 animate-pulse">
-                Generating response...
-              </p>
-            </>
-          ) : null}
-          {response.length > 0 ? (
-            <>
-              <ResponseComponent response={response} />
+              {!loading ? (
+                <>
+                  <ResponseComponent response={response} />
+                </>
+              ) : (
+                <p className="text-xl text-muted-foreground mt-2 animate-pulse">
+                  Generating response...
+                </p>
+              )}
             </>
           ) : null}
 
