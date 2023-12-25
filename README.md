@@ -1,6 +1,11 @@
 
 # GENIE 
 
+## Features :
+- Generate text from text input and also from images (Automatically switches between the two models).
+- Test your Gemini API key
+- Configure the model based on token and safety parameters (Coming soon..)
+- Give the model personality by tweaking the prompts (Coming soon..)
 
 ## Note :
 
