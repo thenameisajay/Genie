@@ -137,7 +137,7 @@ export default function HomePage() {
           </Card>
         </div>
         <div className="flex flex-col justify-center items-center  w-auto relative mx-3 top-16">
-          <ResponseComponent response={response} />
+          {/* <ResponseComponent response={response} /> */}
           {loading ? (
             <div className="flex flex-col justify-center items-center  w-auto relative mx-3 top-16">
               <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-gray-900 dark:border-white"></div>
