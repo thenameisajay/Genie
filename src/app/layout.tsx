@@ -9,6 +9,17 @@ export const metadata: Metadata = {
   title: "Genie",
   description:
     "This is an lite version of Gemini API Models - where you can chat and query images with AI models, Built with Privacy in mind.",
+  icons: {
+    icon: { url: "/images/genie.png" },
+    shortcut: ["/images/genie.png"],
+    apple: "/favicons/apple-touch-icon.png",
+    other: [
+      {
+        rel: "/favicons/android-chrome-384x384.png",
+        url: "/favicons/android-chrome-384x384.png",
+      },
+    ],
+  },
 };
 
 export default function RootLayout({
