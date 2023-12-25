@@ -129,15 +129,16 @@ export default function HomePage() {
               </div>
             </form>
           </Card>
-          <div className="flex flex-col justify-center items-center  relative mt-10 mx-3">
-            {/* <ResponseComponent response={response} /> */}
-            {response.length > 0 ? (
-              <>
-                <ResponseComponent response={response} />
-              </>
-            ) : null}
-          </div>
-          <footer className=" relative    text-center mx-auto">
+        </div>
+        <div className="flex flex-col justify-center items-center  w-auto relative mx-3 top-16">
+          <ResponseComponent response={response} />
+          {response.length > 0 ? (
+            <>
+              <ResponseComponent response={response} />
+            </>
+          ) : null}
+
+          <footer className=" relative text-center mx-auto">
             <p className="leading-7 [&:not(:first-child)]:mt-6">
               Crafted with ❤️ by{" "}
               <a
