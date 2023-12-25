@@ -30,13 +30,12 @@ export function Configuration() {
   console.log("safety", safety);
 
   function saveSettings() {
-    console.log("Saving settings");
-
     // Use Local Storage to save the settings and retrieve them in the Home Page , later change it to useContext
 
     if (token !== undefined && token !== null && token !== "") {
       localStorage.setItem("token", token);
       localStorage.setItem("safety", safety);
+      toast.success("Changes saved successfully!");
     }
   }
 
@@ -88,10 +87,7 @@ export function Configuration() {
             </div>
           </div>
           <DialogFooter>
-            <Button
-              type="submit"
-              onClick={() => toast.success("Changes saved successfully!")}
-            >
+            <Button type="submit" onClick={() => saveSettings()}>
               Save changes
             </Button>
           </DialogFooter>
