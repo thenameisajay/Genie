@@ -55,11 +55,12 @@ export default function HomePage() {
             console.log("Error", error);
           });
       }
+    } catch (error) {
+      console.log("Failed to send message");
+    } finally {
       setImageParts([]);
       setTextValue("");
       setLoading(false);
-    } catch (error) {
-      console.log("Failed to send message");
     }
   };
 
