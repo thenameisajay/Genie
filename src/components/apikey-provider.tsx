@@ -38,6 +38,12 @@ export function APIKEY() {
     }
   }
 
+  useEffect(() => {
+    if (localStorage.getItem("apikey")) {
+      setKey(localStorage.getItem("apikey") || "");
+    }
+  }, []);
+
   return (
     <div className="relative mr-4 top-1">
       <Dialog>

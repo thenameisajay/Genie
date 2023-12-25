@@ -39,6 +39,8 @@ export default function HomePage() {
         console.log("running here");
         console.log(localStorage.getItem("apikey"));
         await setApikeys(localStorage.getItem("apikey") || "");
+      } else {
+        await setApikeys("");
       }
 
       if (localStorage.getItem("token") || localStorage.getItem("safety")) {
