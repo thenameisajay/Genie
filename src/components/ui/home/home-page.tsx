@@ -34,10 +34,8 @@ export default function HomePage() {
         };
 
         const data = run(message).then((response) => {
-          console.log("Response", response);
           setResponse(response);
         });
-        console.log(data);
       } else {
         const message = {
           text: textValue.trim(),
@@ -46,7 +44,7 @@ export default function HomePage() {
 
         run(message)
           .then((response) => {
-            console.log("Response", response);
+            setResponse(response);
           })
           .catch((error) => {
             console.log("Error", error);
