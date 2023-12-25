@@ -15,17 +15,6 @@ export default function Home() {
         <ModeToggle />
       </div>
       <HomePage />
-      <footer className=" absolute w-dvw bottom-0  text-center mx-auto">
-        <p className="leading-7 [&:not(:first-child)]:mt-6">
-          Crafted with ❤️ by{" "}
-          <a
-            className=" text-blue-500 font-sans font-semibold"
-            href="https://github.com/thenameisajay"
-          >
-            @thenameisajay
-          </a>
-        </p>
-      </footer>
     </main>
   );
 }

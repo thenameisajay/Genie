@@ -139,6 +139,17 @@ export default function HomePage() {
               </>
             ) : null}
           </div>
+          <footer className=" relative    text-center mx-auto">
+            <p className="leading-7 [&:not(:first-child)]:mt-6">
+              Crafted with ❤️ by{" "}
+              <a
+                className=" text-blue-500 font-sans font-semibold"
+                href="https://github.com/thenameisajay"
+              >
+                @thenameisajay
+              </a>
+            </p>
+          </footer>
         </div>
       </div>
     </>
