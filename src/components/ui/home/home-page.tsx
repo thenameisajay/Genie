@@ -140,8 +140,7 @@ export default function HomePage() {
           {/* <ResponseComponent response={response} /> */}
           {loading ? (
             <>
-              <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-gray-900 dark:border-white"></div>
-              <p className="text-xl text-muted-foreground mt-2">
+              <p className="text-xl text-muted-foreground mt-2 animate-pulse">
                 Generating response...
               </p>
             </>
