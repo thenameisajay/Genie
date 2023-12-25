@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -38,6 +38,13 @@ export function Configuration() {
       toast.success("Changes saved successfully!");
     }
   }
+
+  // Clear the local storage when the page is loaded , one time use only
+  useEffect(() => {
+    if (localStorage.getItem("token") || localStorage.getItem("safety")) {
+      localStorage.clear();
+    }
+  }, []);
 
   return (
     <div className="relative mr-4 top-1">
