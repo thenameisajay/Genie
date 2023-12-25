@@ -4,16 +4,12 @@ const { GoogleGenerativeAI } = require("@google/generative-ai");
 const genAI = new GoogleGenerativeAI(process.env.NEXT_PUBLIC_GEMINI_API_KEY);
 
 export async function run(message: Object) {
-  console.log("Message:", message);
-
   const modelsAvailable = ["gemini-pro", "gemini-pro-vision"];
 
   const modelChoice =
     Object.keys(message).length === 1 ? modelsAvailable[0] : modelsAvailable[1];
 
   const model = genAI.getGenerativeModel({ model: modelChoice });
-
-  console.log("The model is: ", model);
 
   if (modelChoice === "gemini-pro-vision") {
     const prompt = (message as { text: string }).text;
@@ -27,15 +23,10 @@ export async function run(message: Object) {
   } else {
     const prompt = (message as { text: string }).text;
 
-    console.log("The prompt is: ", prompt);
-
     const result = await model.generateContent(prompt);
     const response = await result.response;
 
-    console.log("The response is before text: ", response);
     const text = response?.text();
-
-    console.log("The text is: ", text);
 
     return text;
   }
