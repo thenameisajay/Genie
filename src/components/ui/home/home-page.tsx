@@ -139,18 +139,16 @@ export default function HomePage() {
           </Card>
         </div>
         <div className="flex flex-col justify-center items-center  w-auto relative mx-3 top-16">
-          {/* <ResponseComponent response={response} /> */}
+          {loading ? (
+            <>
+              <p className="text-xl text-muted-foreground mt-2 animate-pulse">
+                Generating response...
+              </p>
+            </>
+          ) : null}
           {response.length > 0 ? (
             <>
-              {loading ? (
-                <>
-                  <p className="text-xl text-muted-foreground mt-2 animate-pulse">
-                    Generating response...
-                  </p>
-                </>
-              ) : (
-                <ResponseComponent response={response} />
-              )}
+              <ResponseComponent response={response} />
             </>
           ) : null}
 
