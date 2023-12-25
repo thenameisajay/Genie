@@ -47,8 +47,8 @@ export default function HomePage() {
         // Take the message object and send it to the api
         run(message)
           .then((response) => {
-            setLoading(false);
             if (response.length > 0 && response !== undefined) {
+              setLoading(false);
               setResponse(response);
             }
           })
@@ -144,12 +144,12 @@ export default function HomePage() {
             <>
               {loading ? (
                 <>
-                  <ResponseComponent response={response} />
+                  <p className="text-xl text-muted-foreground mt-2 animate-pulse">
+                    Generating response...
+                  </p>
                 </>
               ) : (
-                <p className="text-xl text-muted-foreground mt-2 animate-pulse">
-                  Generating response...
-                </p>
+                <ResponseComponent response={response} />
               )}
             </>
           ) : null}
