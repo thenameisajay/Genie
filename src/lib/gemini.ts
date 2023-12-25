@@ -14,12 +14,7 @@ export async function run(message: Object) {
   if (modelChoice === "gemini-pro-vision") {
     const prompt = (message as { text: string }).text;
 
-    console.log("The Message is :", message);
-    console.log("The Prompt is :", prompt);
-
     const { imageParts } = message as { imageParts: Array<Object> };
-
-    console.log("The Image Parts are :", imageParts);
 
     const result = await model.generateContent([prompt, ...imageParts]);
     const response = await result.response;
