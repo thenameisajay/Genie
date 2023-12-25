@@ -17,6 +17,7 @@ export default function HomePage() {
   const [textValue, setTextValue] = useState<string>("");
   const [imageParts, setImageParts] = useState<Array<Object>>([]);
   const [response, setResponse] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(false);
 
   const handleButtonClick = () => {
     const fileInput = document.getElementById("picture");
@@ -44,7 +45,12 @@ export default function HomePage() {
 
         run(message)
           .then((response) => {
-            setResponse(response);
+            setLoading(true);
+
+            if (response.length > 0 && response !== undefined) {
+              setLoading(false);
+              setResponse(response);
+            }
           })
           .catch((error) => {
             console.log("Error", error);
@@ -120,7 +126,7 @@ export default function HomePage() {
                   </Button>
                   <Button
                     type="submit"
-                    disabled={textValue.length === 0}
+                    disabled={textValue.length === 0 || loading}
                     className="ml-2 rounded-full p-2  w-10 h-10 bg-black dark:bg-white"
                   >
                     <ArrowBendDownLeft size={25} weight="fill" className="" />
@@ -132,6 +138,14 @@ export default function HomePage() {
         </div>
         <div className="flex flex-col justify-center items-center  w-auto relative mx-3 top-16">
           <ResponseComponent response={response} />
+          {loading ? (
+            <div className="flex flex-col justify-center items-center  w-auto relative mx-3 top-16">
+              <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-gray-900 dark:border-white"></div>
+              <p className="text-xl text-muted-foreground mt-2">
+                Generating response...
+              </p>
+            </div>
+          ) : null}
           {response.length > 0 ? (
             <>
               <ResponseComponent response={response} />
