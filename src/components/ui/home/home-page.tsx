@@ -26,6 +26,7 @@ export default function HomePage() {
 
   const handleSubmit = (event: any) => {
     event.preventDefault();
+    setLoading(true);
 
     // Pack text and images into an object called message and send it to the api
     try {
@@ -43,10 +44,9 @@ export default function HomePage() {
           imageParts: imageParts,
         };
 
+        // Take the message object and send it to the api
         run(message)
           .then((response) => {
-            setLoading(true);
-
             if (response.length > 0 && response !== undefined) {
               setLoading(false);
               setResponse(response);
