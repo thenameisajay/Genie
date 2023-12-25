@@ -56,10 +56,10 @@ export function APIKEY() {
           <DialogHeader>
             <DialogTitle>API KEY TESTING </DialogTitle>
             <DialogDescription>
-              This option is used for testing your api key , while there is a
-              default key for testing , you can use your own key to test the api
+              This option is used for testing your api key. By default there is
+              a default key for testing but you can use your own key to see if
+              it works.
               <br />
-              <strong>Work on Progress 🚧</strong>
             </DialogDescription>
           </DialogHeader>
           <div className="grid gap-4 py-4">
