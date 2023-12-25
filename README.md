@@ -1,6 +1,9 @@
 
 # GENIE 
 
+## LINK:  https://genie-rho.vercel.app/
+
+
 ## Features :
 - Generate text from text input and also from images (Automatically switches between the two models).
 - Test your Gemini API key
