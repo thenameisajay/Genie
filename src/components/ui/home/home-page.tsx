@@ -8,6 +8,7 @@ import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
+import Notes from "@/components/ui/home/notes";
 
 import { fileToGenerativePart } from "@/lib/actions";
 import { run } from "@/lib/gemini";
@@ -178,40 +179,7 @@ export default function HomePage() {
               <ResponseComponent response={response} />
             </>
           ) : (
-            <div className="mb-2">
-              <p className="text-xl text-muted-foreground mt-2 ">Note:</p>
-              <ul className="text-start indent-1">
-                <li>
-                  ⌛ Response from the api may take some time especially if
-                  images are multiple.
-                </li>
-                <li>
-                  🌏 The app works only in{" "}
-                  <a
-                    href="https://ai.google.dev/available_regions"
-                    className="text-blue-500"
-                  >
-                    available
-                  </a>{" "}
-                  regions due to api restrictions.
-                </li>
-                <li>
-                  🧪 This app was built only for testing purposes and is not
-                  intended to be used in production.
-                </li>
-                <li>
-                  🔍 The source code is available on{" "}
-                  <a
-                    href="https://github.com/thenameisajay/Genie
-                    "
-                    className="text-blue-500"
-                  >
-                    Github
-                  </a>
-                  .
-                </li>
-              </ul>
-            </div>
+            <Notes />
           )}
 
           <footer className=" relative text-center mx-auto">
