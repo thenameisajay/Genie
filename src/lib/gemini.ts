@@ -2,8 +2,6 @@
 const { GoogleGenerativeAI } = require("@google/generative-ai");
 
 export async function run(message: Object, apikey: string) {
-  console.log("API KEY = ", apikey);
-
   const genAI = new GoogleGenerativeAI(
     apikey || process.env.NEXT_PUBLIC_GEMINI_API_KEY
   );
