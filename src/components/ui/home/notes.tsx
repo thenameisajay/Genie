@@ -4,23 +4,21 @@ export default function Notes() {
       <p className="text-xl text-muted-foreground mt-2 ">Note:</p>
       <ul className="text-start indent-1">
         <li>
-          ⌛ Response from the api may take some time especially if images are
-          multiple.
+          ⌛ The Response from the models will be generated here and sometimes
+          may take time especially if images are multiple.
         </li>
+
         <li>
           🌏 The app works only in{" "}
           <a
             href="https://ai.google.dev/available_regions"
             className="text-blue-500"
           >
-            available
+            selected
           </a>{" "}
-          regions due to api restrictions.
+          regions due to API restrictions.
         </li>
-        <li>
-          🧪 This app was built only for testing purposes and is not intended to
-          be used in production.
-        </li>
+        <li>🧪 This app was built only for testing purposes.</li>
         <li>
           🔍 The source code is available on{" "}
           <a
@@ -34,7 +32,7 @@ export default function Notes() {
         </li>
         <li>
           🔒 Built with Privacy in mind. All data is processed and stored
-          locally including any api keys used in testing .
+          locally including any api keys used in testing.
         </li>
       </ul>
     </div>
