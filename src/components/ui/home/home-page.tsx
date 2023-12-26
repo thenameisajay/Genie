@@ -93,6 +93,26 @@ export default function HomePage() {
     // Add multiple images at once
     let files = event.target.files;
 
+    //Calculate the size of the images
+    let totalSize = 0;
+    for (let i = 0; i < (files?.length ?? 0); i++) {
+      if (files && files[i]) {
+        totalSize += files[i].size;
+      }
+    }
+
+    // API only supports 4MB at once
+    if (totalSize > 4000000) {
+      toast.error("Please select images less than 4MB");
+      return;
+    }
+
+    // API only supports 16 images at once
+    if (files?.length ?? 0 > 16) {
+      toast.error("Please select less than 16 images");
+      return;
+    }
+
     if (files && files.length > 0) {
       toast.success(` ${files.length} Files selected`);
 
@@ -145,7 +165,7 @@ export default function HomePage() {
                       className="mr-2 ml-2"
                       id="picture"
                       type="file"
-                      accept="image/jpeg, image/png , image/jpg"
+                      accept="image/jpeg, image/png , image/jpg , image/webp, image/heic , image/heif"
                       onChange={handleImages}
                       style={{ display: "none" }}
                       multiple
