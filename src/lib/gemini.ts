@@ -8,8 +8,6 @@ export async function run(message: Object, apikey: string) {
     apikey || process.env.NEXT_PUBLIC_GEMINI_API_KEY
   );
 
-  console.log(genAI);
-
   const modelsAvailable = ["gemini-pro", "gemini-pro-vision"];
 
   const modelChoice =
