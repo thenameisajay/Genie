@@ -94,18 +94,18 @@ export default function HomePage() {
     let files = event.target.files;
 
     //Calculate the size of the images
-    let totalSize = 0;
-    for (let i = 0; i < (files?.length ?? 0); i++) {
-      if (files && files[i]) {
-        totalSize += files[i].size;
-      }
-    }
+    // let totalSize = 0;
+    // for (let i = 0; i < (files?.length ?? 0); i++) {
+    //   if (files && files[i]) {
+    //     totalSize += files[i].size;
+    //   }
+    // }
 
-    // API only supports 4MB at once
-    if (totalSize > 4000000) {
-      toast.error("Please select images less than 4MB");
-      return;
-    }
+    // // API only supports 4MB at once
+    // if (totalSize > 4000000) {
+    //   toast.error("Please select images less than 4MB");
+    //   return;
+    // }
 
     // API only supports 16 images at once
     // if (files?.length ?? 0 > 16) {
