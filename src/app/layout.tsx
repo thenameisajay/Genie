@@ -6,20 +6,9 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Genie",
+  title: "Genie, by thenameisajay",
   description:
-    "This is an lite version of Gemini API Models - where you can chat and query images with AI models, Built with Privacy in mind.",
-  icons: {
-    icon: { url: "/images/genie.png" },
-    shortcut: ["/images/genie.png"],
-    apple: "/favicons/apple-touch-icon.png",
-    other: [
-      {
-        rel: "/favicons/android-chrome-384x384.png",
-        url: "/favicons/android-chrome-384x384.png",
-      },
-    ],
-  },
+    "This is an lite version of Gemini API Models - where you can chat and query images with the Gemini models, Built with Privacy in mind.",
 };
 
 export default function RootLayout({
@@ -29,6 +18,20 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        <link
+          rel="icon"
+          href="/icon?<generated>"
+          type="image/<generated>"
+          sizes="<generated>"
+        />
+        <link
+          rel="apple-touch-icon"
+          href="/apple-icon?<generated>"
+          type="image/<generated>"
+          sizes="<generated>"
+        />
+      </head>
       <body className={inter.className}>
         <ThemeProvider
           attribute="class"
