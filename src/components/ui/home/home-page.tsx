@@ -108,10 +108,10 @@ export default function HomePage() {
     }
 
     // API only supports 16 images at once
-    if (files?.length ?? 0 > 16) {
-      toast.error("Please select less than 16 images");
-      return;
-    }
+    // if (files?.length ?? 0 > 16) {
+    //   toast.error("Please select less than 16 images");
+    //   return;
+    // }
 
     if (files && files.length > 0) {
       toast.success(` ${files.length} Files selected`);
