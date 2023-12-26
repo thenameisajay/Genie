@@ -34,18 +34,14 @@ export default function HomePage() {
 
   const getValues = async () => {
     if (localStorage !== undefined) {
-      console.log("running");
       // Check for configuration settings
       if (localStorage.getItem("apikey")) {
-        console.log("running here");
-        console.log(localStorage.getItem("apikey"));
         await setApikeys(localStorage.getItem("apikey") || "");
       } else {
         await setApikeys("");
       }
 
       if (localStorage.getItem("token") || localStorage.getItem("safety")) {
-        console.log("running here now");
         await setToken(localStorage.getItem("token") || "");
         await setSafety(localStorage.getItem("safety") || "");
       }
