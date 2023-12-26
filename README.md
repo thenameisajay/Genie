@@ -7,8 +7,7 @@
 ## Features :
 - Generate text from text input and also from images (Automatically switches between the two models).
 - Test your Gemini API key
-- Configure the model based on token and safety parameters (Coming soon..)
-- Give the model personality by tweaking the prompts (Coming soon..)
+
 
 ## Note :
 
@@ -17,7 +16,7 @@
    - Gemini Pro
    - Gemini Pro Vision
 
-- Response from the api is slow at times especially when using the pro vision model. Once it is available in the UK, I will try to optimise the app for better performance.
+- Response from the API is slow at times especially when using the pro-vision model. Once it is available in the UK, I will try to optimise the app for better performance.
 
 ## Description
 
@@ -49,7 +48,7 @@ The app is deployed on Vercel and can be accessed here: https://genie-rho.vercel
 
 ## DOCS USED FOR DEVELOPMENT : 
 
-See Learn.md for the docs used for development
+See Learn. md for the docs used for development
 
 
 
