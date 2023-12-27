@@ -56,7 +56,7 @@ export default function HomePage() {
   useEffect(() => {
     if (maxToken > 0) {
       setGenerationConfig({
-        maxNumTokens: maxToken,
+        maxOutputTokens: maxToken,
       });
     } else {
       setGenerationConfig({});
