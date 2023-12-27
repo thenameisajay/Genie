@@ -65,7 +65,7 @@ export function Configuration() {
         </DialogTrigger>
         <DialogContent className="sm:max-w-[425px]">
           <DialogHeader>
-            <DialogTitle>Model Configuration </DialogTitle>
+            <DialogTitle>Model Parameters </DialogTitle>
             <DialogDescription>
               Make changes to the model here and save them to test the variation
               best suited for your needs.
