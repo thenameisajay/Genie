@@ -21,7 +21,7 @@ import toast from "react-hot-toast";
 export function Configuration() {
   const options = ["Safe", "Moderate", "Risky"];
 
-  const [maxToken, setMaxToken] = useState<string>("");
+  const [maxToken, setMaxToken] = useState<number>(0);
 
   // const [safety, setSafety] = useState<string>("Safe");
 
@@ -31,10 +31,8 @@ export function Configuration() {
 
   function saveSettings() {
     // Use Local Storage to save the settings and retrieve them in the Home Page , later change it to useContext
-
-    if (maxToken !== undefined && maxToken !== null && maxToken !== "") {
-      localStorage.setItem("token", maxToken);
-
+    if (localStorage !== undefined) {
+      localStorage.setItem("token", maxToken.toString());
       // localStorage.setItem("safety", safety);
       toast.success("Changes saved successfully!");
     }
@@ -45,14 +43,14 @@ export function Configuration() {
       localStorage?.removeItem("token");
       localStorage?.removeItem("safety");
       // setSafety("Safe");
-      setMaxToken("");
+      setMaxToken(0);
       toast.success("Changes cleared successfully!");
     }
   }
 
   useEffect(() => {
     if (localStorage.getItem("token")) {
-      setMaxToken(localStorage.getItem("token") ?? "");
+      setMaxToken(parseInt(localStorage.getItem("token") ?? ""));
     }
   }, []);
 
@@ -82,8 +80,9 @@ export function Configuration() {
               </Label>
               <Input
                 id="tokens"
+                type="number"
                 value={maxToken}
-                onChange={(e) => setMaxToken(e.target.value)}
+                onChange={(e) => setMaxToken(parseInt(e.target.value))}
                 className="col-span-3"
               />
             </div>

@@ -20,8 +20,9 @@ export default function HomePage() {
   const [apikeys, setApikeys] = useState<string>("");
   const [response, setResponse] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
-  const [safety, setSafety] = useState<string>("");
-  const [token, setToken] = useState<string>("");
+  // const [safety, setSafety] = useState<string>("");
+  const [maxToken, setMaxToken] = useState<number>(0);
+  const [generationConfig, setGenerationConfig] = useState<Object>({});
 
   const handleButtonClick = () => {
     const fileInput = document.getElementById("picture");
@@ -41,17 +42,40 @@ export default function HomePage() {
         await setApikeys("");
       }
 
-      if (localStorage.getItem("token") || localStorage.getItem("safety")) {
-        await setToken(localStorage.getItem("token") || "");
-        await setSafety(localStorage.getItem("safety") || "");
+      if (localStorage.getItem("token")) {
+        await setMaxToken(parseInt(localStorage.getItem("token") || ""));
+
+        // await setSafety(localStorage.getItem("safety") || "");
+      } else {
+        setMaxToken(0);
       }
     }
   };
+
+  // Generation Configuration
+  useEffect(() => {
+    if (maxToken > 0) {
+      setGenerationConfig({
+        maxNumTokens: maxToken,
+      });
+    } else {
+      setGenerationConfig({});
+    }
+  }, [maxToken, textValue]);
 
   const handleSubmit = (event: any) => {
     event.preventDefault();
     setLoading(true);
     getValues();
+
+    console.log("maxToken", maxToken);
+
+    if (maxToken > 0) {
+      console.log("This line is getting executed");
+      setGenerationConfig({
+        maxNumTokens: maxToken,
+      });
+    }
 
     // Packing text and images into an object called message and send it to the api
     try {
@@ -60,7 +84,7 @@ export default function HomePage() {
           text: textValue.trim(),
         };
 
-        run(message, apikeys).then((response) => {
+        run(message, apikeys, generationConfig).then((response) => {
           setResponse(response);
         });
       } else {
@@ -70,7 +94,7 @@ export default function HomePage() {
         };
 
         // Take the message object and send it to the api
-        run(message, apikeys)
+        run(message, apikeys, generationConfig)
           .then((response) => {
             if (response.length > 0 && response !== undefined) {
               setResponse(response);

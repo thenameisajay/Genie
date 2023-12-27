@@ -1,7 +1,11 @@
 "use client";
 const { GoogleGenerativeAI } = require("@google/generative-ai");
 
-export async function run(message: Object, apikey: string) {
+export async function run(
+  message: Object,
+  apikey: string,
+  generationConfig?: Object
+) {
   const genAI = new GoogleGenerativeAI(
     apikey || process.env.NEXT_PUBLIC_GEMINI_API_KEY
   );
@@ -11,7 +15,12 @@ export async function run(message: Object, apikey: string) {
   const modelChoice =
     Object.keys(message).length === 1 ? modelsAvailable[0] : modelsAvailable[1];
 
-  const model = genAI.getGenerativeModel({ model: modelChoice });
+  const model = genAI.getGenerativeModel(
+    { model: modelChoice },
+    generationConfig && Object.keys(generationConfig).length > 0
+      ? generationConfig
+      : undefined
+  );
 
   if (modelChoice === "gemini-pro-vision") {
     const prompt = (message as { text: string }).text;
