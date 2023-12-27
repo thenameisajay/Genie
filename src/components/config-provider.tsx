@@ -21,20 +21,21 @@ import toast from "react-hot-toast";
 export function Configuration() {
   const options = ["Safe", "Moderate", "Risky"];
 
-  const [token, setToken] = useState<string>("");
+  const [maxToken, setMaxToken] = useState<string>("");
 
-  const [safety, setSafety] = useState<string>("Safe");
+  // const [safety, setSafety] = useState<string>("Safe");
 
-  console.log("token", token);
+  console.log("token", maxToken);
 
-  console.log("safety", safety);
+  // console.log("safety", safety);
 
   function saveSettings() {
     // Use Local Storage to save the settings and retrieve them in the Home Page , later change it to useContext
 
-    if (token !== undefined && token !== null && token !== "") {
-      localStorage.setItem("token", token);
-      localStorage.setItem("safety", safety);
+    if (maxToken !== undefined && maxToken !== null && maxToken !== "") {
+      localStorage.setItem("token", maxToken);
+
+      // localStorage.setItem("safety", safety);
       toast.success("Changes saved successfully!");
     }
   }
@@ -43,11 +44,17 @@ export function Configuration() {
     if (localStorage.getItem("token") || localStorage.getItem("safety")) {
       localStorage?.removeItem("token");
       localStorage?.removeItem("safety");
-      setSafety("Safe");
-      setToken("");
+      // setSafety("Safe");
+      setMaxToken("");
       toast.success("Changes cleared successfully!");
     }
   }
+
+  useEffect(() => {
+    if (localStorage.getItem("token")) {
+      setMaxToken(localStorage.getItem("token") ?? "");
+    }
+  }, []);
 
   return (
     <div className="relative mr-4 top-1">
@@ -75,12 +82,12 @@ export function Configuration() {
               </Label>
               <Input
                 id="tokens"
-                value={token}
-                onChange={(e) => setToken(e.target.value)}
+                value={maxToken}
+                onChange={(e) => setMaxToken(e.target.value)}
                 className="col-span-3"
               />
             </div>
-            <div className="grid grid-cols-4 items-center gap-4">
+            {/* <div className="grid grid-cols-4 items-center gap-4">
               <Label htmlFor="username" className="text-right">
                 Safety
               </Label>
@@ -94,7 +101,7 @@ export function Configuration() {
                   <option key={option}>{option}</option>
                 ))}
               </select>
-            </div>
+            </div> */}
           </div>
           <DialogFooter>
             <div className="flex flex-row">
