@@ -3,6 +3,7 @@ export default function Notes() {
     <div className="mb-2">
       <p className="text-xl text-muted-foreground mt-2 ">Note:</p>
       <ul className="text-start indent-1">
+        <li>🤖 Models supported: Gemini Pro, Gemini Pro Vision.</li>
         <li>
           ⌛ The Response from the models will be generated here and sometimes
           may take time especially if images are multiple.
