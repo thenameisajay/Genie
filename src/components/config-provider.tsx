@@ -70,7 +70,6 @@ export function Configuration() {
               Make changes to the model here and save them to test the variation
               best suited for your needs.
               <br />
-              <strong>Work on Progress 🚧</strong>
             </DialogDescription>
           </DialogHeader>
           <div className="grid gap-4 py-4">
