@@ -4,19 +4,22 @@
 ## LINK:  https://genie-rho.vercel.app/
 
 
-## Features :
-- Generate text from text input and also from images (Automatically switches between the two models).
-- Test your Gemini API key
+## Features:
+- Text Generation: Generate text from both text input and images.
+- Model Selection: Automatically switches between Gemini Pro and Gemini Pro Vision models for optimal results.
+- API Key Testing: Verify the functionality of your Gemini API key.
 
 
-## Note :
+## Availability and Models: 
 
-- Only Available in the selected regions. See the list of available regions here: https://ai.google.dev/available_regions
-- Models that can be tested :
-   - Gemini Pro
-   - Gemini Pro Vision
+Available Regions: Check out the available regions list at https://ai.google.dev/available_regions
 
-- Response from the API is slow at times especially when using the pro-vision model. Once it is available in the UK, I will try to optimise the app for better performance.
+Supported Models:
+
+- Gemini Pro
+- Gemini Pro Vision
+
+Note: Please keep in mind that performance optimization for the UK region is planned for future availability.
 
 ## Description
 
