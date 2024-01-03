@@ -68,7 +68,7 @@ Here's a quick guide to contributing:
 - Fork the repository: Start by creating a fork of the project on GitHub.
 - Clone your fork: Clone your forked repository to your local machine.
 - Create a new branch: Make your changes on a new branch to keep things organized.
-- Follow code style: Adhere to the project's code style guidelines (usually found in a CONTRIBUTING.md or README.md file).
+- Follow code style: Adhere to the project's code style guidelines.
 - Write tests: Ensure your changes are covered by tests to maintain quality.
 - Submit a pull request: When you're ready, create a pull request from your branch to the main repository.
 - Address feedback: Engage in discussions and incorporate any feedback from reviewers to improve your contribution.
