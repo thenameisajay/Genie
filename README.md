@@ -61,7 +61,7 @@ Refer to Learn.md for detailed development documentation.
 
 ## Contributing
 
-** Welcome to the GENIE project! We're excited to have you join our project.**
+<h1> Welcome to the GENIE project! We're excited to have you join our project. <h2>
 
 Here's a quick guide to contributing:
 
