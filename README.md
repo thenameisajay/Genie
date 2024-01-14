@@ -56,7 +56,7 @@ Refer to Learn.md for detailed development documentation.
 
 ![Working ](<SCREENSHOTS/Screenshot 2023-12-25 at 8.11.37 PM.png>)
 
-![Working](<SCREENSHOTS/Screenshot 2023-12-25 at 9.31.21 PM.png>) 
+![Working](<SCREENSHOTS/jonah-and-god.png>) 
 
 
 ## Contributing
