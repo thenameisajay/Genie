@@ -1,4 +1,4 @@
-"use client";
+"use server";
 const { GoogleGenerativeAI } = require("@google/generative-ai");
 
 export async function run(
