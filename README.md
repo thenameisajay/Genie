@@ -25,7 +25,7 @@ Note: Please keep in mind that performance optimization for the UK region is pla
 
 ## Description
 
-This web application makes use of the Google Gemini API to generate text from both text-based and image-based inputs. It was originally intended for testing the GPT-4-Vision model, but upon its release, it underwent codebase adaptation to integrate the Gemini API. The application was used as an internal testing platform for the Gemini API within our organization and is no longer in use. Notably, during the time of development, <strong>regional constraints prohibited API access within the UK<strong>, necessitating testing support from an Indian partner.
+This web application makes use of the Google Gemini API to generate text from both text-based and image-based inputs. It was originally intended for testing the GPT-4-Vision model, but upon its release, it underwent codebase adaptation to integrate the Gemini API. The application was used as an internal testing platform for the Gemini API within our organization and is no longer in use.
 
 
 ## Tech Stack
