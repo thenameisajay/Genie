@@ -11,7 +11,7 @@ import { Button } from "@/components/ui/button";
 import Notes from "@/components/ui/home/notes";
 
 import { fileToGenerativePart } from "@/lib/actions";
-import { run } from "@/lib/gemini";
+import { run } from "@/app/api/gemini";
 import ResponseComponent from "@/components/ui/response-component";
 
 export default function HomePage() {

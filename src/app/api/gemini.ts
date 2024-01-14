@@ -6,9 +6,7 @@ export async function run(
   apikey: string,
   generationConfig?: Object
 ) {
-  const genAI = new GoogleGenerativeAI(
-    apikey || process.env.NEXT_PUBLIC_GEMINI_API_KEY
-  );
+  const genAI = new GoogleGenerativeAI(apikey || process.env.GEMINI_API_KEY);
 
   const modelsAvailable = ["gemini-pro", "gemini-pro-vision"];
 
