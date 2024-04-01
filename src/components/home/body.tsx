@@ -9,10 +9,7 @@ import { run } from '@/app/api/gemini';
 import { fileToGenerativePart } from '@/lib/actions';
 import { type InputSchemaType, inputSchema } from '@/schemas/inputSchema';
 import { zodResolver } from '@hookform/resolvers/zod';
-import {
-    ArrowBendDownLeft,
-    Image as ImagePhosphor,
-} from '@phosphor-icons/react';
+import { Image as ImagePhosphor, PaperPlaneRight } from '@phosphor-icons/react';
 
 import Footer from '@/components/home/footer';
 import Notes from '@/components/home/notes';
@@ -239,10 +236,7 @@ export default function Body() {
                                     disabled={!isValid || isLoading}
                                     className="ml-2 h-10 w-10  rounded-full bg-black p-2 dark:bg-white"
                                 >
-                                    <ArrowBendDownLeft
-                                        size={25}
-                                        weight="fill"
-                                    />
+                                    <PaperPlaneRight size={25} weight="fill" />
                                 </Button>
                             </div>
                         </div>
