@@ -9,7 +9,10 @@ import { run } from '@/app/api/gemini';
 import { fileToGenerativePart } from '@/lib/actions';
 import { type InputSchemaType, inputSchema } from '@/schemas/inputSchema';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { ArrowBendDownLeft, ArrowCircleUp } from '@phosphor-icons/react';
+import {
+    ArrowBendDownLeft,
+    Image as ImagePhosphor,
+} from '@phosphor-icons/react';
 
 import Footer from '@/components/home/footer';
 import Notes from '@/components/home/notes';
@@ -216,11 +219,11 @@ export default function Body() {
 
                             <div className="mb-3 mr-2 mt-2 flex w-64  flex-row items-end justify-end">
                                 <Button
-                                    className="h-10 w-10  rounded-full bg-amber-900   p-2"
+                                    className="h-10 w-10  rounded-full bg-blue-500  p-2"
                                     type="button"
                                     onClick={handleButtonClick}
                                 >
-                                    <ArrowCircleUp size={25} weight="fill" />
+                                    <ImagePhosphor size={25} weight="fill" />
                                     <Input
                                         className="ml-2 mr-2"
                                         id="picture"
