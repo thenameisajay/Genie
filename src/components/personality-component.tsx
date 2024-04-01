@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import toast from 'react-hot-toast';
 
 import { UserSwitch } from '@phosphor-icons/react';
@@ -19,30 +19,30 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 
 export function Personality() {
-    const options = ['Safe', 'Moderate', 'Risky'];
+    //   const options = ["Safe", "Moderate", "Risky"];
 
     const [token, setToken] = useState<string>('');
 
-    const [safety, setSafety] = useState<string>('Safe');
+    //   const [safety, setSafety] = useState<string>("Safe");
 
     console.log('token', token);
 
-    console.log('safety', safety);
+    //   console.log("safety", safety);
 
     function saveSettings() {
         // Use Local Storage to save the settings and retrieve them in the Home Page , later change it to useContext
 
         if (token !== undefined && token !== null && token !== '') {
             localStorage.setItem('token', token);
-            localStorage.setItem('safety', safety);
+            //   localStorage.setItem("safety", safety);
             toast.success('Changes saved successfully!');
         }
     }
 
     function clearSettings() {
-        if (localStorage.getItem('token') || localStorage.getItem('safety')) {
+        if (localStorage.getItem('token')) {
             localStorage?.removeItem('token');
-            localStorage?.removeItem('safety');
+            //   localStorage?.removeItem("safety");
         }
     }
 

@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 
-import { Key, UserSwitch } from '@phosphor-icons/react';
+import { Key } from '@phosphor-icons/react';
 
 import { Button } from '@/components/ui/button';
 import {

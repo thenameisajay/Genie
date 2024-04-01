@@ -2,7 +2,6 @@ import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 
 import { Providers } from '@/providers/providers';
-import { ThemeProvider } from '@/providers/theme-provider';
 
 import './globals.css';
 

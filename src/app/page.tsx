@@ -4,7 +4,7 @@ import React from 'react';
 
 import { APIKEY } from '@/components/apikey-component';
 import { Configuration } from '@/components/config-component';
-import { Personality } from '@/components/personality-component';
+// import { Personality } from '@/components/personality-component';
 import HomePage from '@/components/ui/home/home-page';
 import { ThemeToggle } from '@/components/ui/theme-toggle';
 
