@@ -111,6 +111,7 @@ export default function HomeComponent() {
             setErrorMessage(error as string);
             console.error(error);
         } finally {
+            setIsLoading(false);
             setImageParts([]);
             setTextValue('');
         }
