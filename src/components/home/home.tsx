@@ -80,6 +80,9 @@ export default function HomeComponent() {
                     .then((response) => {
                         setResponse(response as string);
                         setIsLoading(false);
+
+                        setImageParts([]);
+                        setTextValue('');
                     })
                     .catch((error) => {
                         setIsLoading(false);
@@ -96,11 +99,13 @@ export default function HomeComponent() {
                 };
 
                 // Take the message object and send it to the api
-                run(message, apikeys, generationConfig)
+                void run(message, apikeys, generationConfig)
                     .then((response) => {
                         if (response.length > 0 && response !== undefined) {
                             setResponse(response as string);
                             setIsLoading(false);
+                            setImageParts([]);
+                            setTextValue('');
                         }
                     })
                     .catch((error) => {
