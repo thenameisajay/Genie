@@ -17,6 +17,8 @@ import ErrorComponent from '@/components/ui/states/error';
 import LoadingComponent from '@/components/ui/states/loading';
 import { Textarea } from '@/components/ui/textarea';
 
+//TODO : Use react hook form for forms and useHooks for local storage
+
 export default function Body() {
     const [textValue, setTextValue] = useState<string>('');
     const [imageParts, setImageParts] = useState<Array<object>>([]);
