@@ -79,6 +79,10 @@ export default function HomeComponent() {
                 void run(message, apikeys, generationConfig)
                     .then((response) => {
                         setResponse(response as string);
+                        setIsLoading(false);
+
+                        setImageParts([]);
+                        setTextValue('');
                     })
                     .catch((error) => {
                         setIsLoading(false);
@@ -88,17 +92,20 @@ export default function HomeComponent() {
                         throw new Error(error as string);
                     });
             } else {
+                // TODO : Handle states for image  generaation model
                 const message = {
                     text: textValue.trim(),
                     imageParts: imageParts,
                 };
 
                 // Take the message object and send it to the api
-                run(message, apikeys, generationConfig)
+                void run(message, apikeys, generationConfig)
                     .then((response) => {
                         if (response.length > 0 && response !== undefined) {
                             setResponse(response as string);
                             setIsLoading(false);
+                            setImageParts([]);
+                            setTextValue('');
                         }
                     })
                     .catch((error) => {
@@ -110,10 +117,6 @@ export default function HomeComponent() {
             setIsError(true);
             setErrorMessage(error as string);
             console.error(error);
-        } finally {
-            setIsLoading(false);
-            setImageParts([]);
-            setTextValue('');
         }
     };
 
