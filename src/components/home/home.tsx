@@ -9,10 +9,10 @@ import { ArrowBendDownLeft, ArrowCircleUp, Lamp } from '@phosphor-icons/react';
 
 import Footer from '@/components/home/footer';
 import Notes from '@/components/home/notes';
+import ResponseComponent from '@/components/response-component';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
-import ResponseComponent from '@/components/ui/response-component';
 import LoadingComponent from '@/components/ui/states/loading';
 import { Textarea } from '@/components/ui/textarea';
 
@@ -247,6 +247,7 @@ export default function HomeComponent() {
             <div className="absolute top-20  flex w-dvw flex-col items-center text-center ">
                 <StartingComponent />
                 <MiddleComponent />
+                <EndComponent />
             </div>
         </>
     );

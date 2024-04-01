@@ -62,38 +62,41 @@ export function APIKEY() {
                             <br />
                         </DialogDescription>
                     </DialogHeader>
-                    <div className="grid gap-4 py-4">
-                        <div className="grid grid-cols-4 items-center gap-4">
-                            <Label htmlFor="apikey" className="text-right">
-                                API-KEY
-                            </Label>
-                            <Input
-                                id="name"
-                                type="password"
-                                value={key}
-                                onChange={(e) => setKey(e.target.value)}
-                                className="col-span-3 ml-3"
-                            />
+                    <form onSubmit={(e) => e.preventDefault()}>
+                        <div className="grid gap-4 py-4">
+                            <div className="grid grid-cols-4 items-center gap-4">
+                                <Label htmlFor="apikey" className="text-right">
+                                    API-KEY
+                                </Label>
+                                <Input
+                                    id="name"
+                                    type="password"
+                                    value={key}
+                                    onChange={(e) => setKey(e.target.value)}
+                                    className="col-span-3 ml-3"
+                                    autoComplete="off"
+                                />
+                            </div>
                         </div>
-                    </div>
-                    <DialogFooter>
-                        <div className="flex flex-row">
-                            <Button
-                                type="button"
-                                className="mr-1"
-                                onClick={() => clearSettings()}
-                            >
-                                Clear changes
-                            </Button>
-                            <Button
-                                type="submit"
-                                className="ml-1"
-                                onClick={() => saveSettings()}
-                            >
-                                Save changes
-                            </Button>
-                        </div>
-                    </DialogFooter>
+                        <DialogFooter>
+                            <div className="flex flex-row">
+                                <Button
+                                    type="button"
+                                    className="mr-1"
+                                    onClick={() => clearSettings()}
+                                >
+                                    Clear changes
+                                </Button>
+                                <Button
+                                    type="submit"
+                                    className="ml-1"
+                                    onClick={() => saveSettings()}
+                                >
+                                    Save changes
+                                </Button>
+                            </div>
+                        </DialogFooter>
+                    </form>
                 </DialogContent>
             </Dialog>
         </div>
