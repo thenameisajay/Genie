@@ -6,6 +6,7 @@ import { Controller, useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 
 import { run } from '@/app/api/gemini';
+import { type Message } from '@/interfaces/message';
 import { fileToGenerativePart } from '@/lib/actions';
 import { type InputSchemaType, inputSchema } from '@/schemas/inputSchema';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -29,9 +30,9 @@ export default function Body() {
 
     const [response, setResponse] = useState<string>('');
     const [errorMessage, setErrorMessage] = useState<string>('');
-    const [maxToken, setMaxToken] = useLocalStorage<number>('token', 0);
+    const [maxToken] = useLocalStorage<number>('token', 0);
     const [generationConfig, setGenerationConfig] = useState<object>({});
-    const [apikey, setApikeys] = useLocalStorage<string>('apikey', '');
+    const [apikey] = useLocalStorage<string>('apikey', '');
 
     const {
         handleSubmit,
@@ -52,63 +53,59 @@ export default function Body() {
         fileInput?.click();
     };
 
+    const settledState = (response: string) => {
+        setResponse(response);
+        setIsLoading(false);
+        setImageParts([]);
+    };
+
+    const errorState = (message: string) => {
+        setErrorMessage(message);
+        setIsLoading(false);
+        setIsError(true);
+    };
+
+    const makeTheCall = async (
+        message: object,
+        apikey: string,
+        generationConfig: object,
+    ) => {
+        await run(message, apikey as string, generationConfig)
+            .then((response) => {
+                settledState(response as string);
+            })
+            .catch((error) => {
+                errorState(error.message as string);
+                throw new Error(error.message as string);
+            });
+    };
+
     const onSubmit: SubmitHandler<InputSchemaType> = (
         data: InputSchemaType,
     ) => {
         setResponse('');
         const { text: textValue } = data;
         setIsLoading(true);
-        getValues();
+        // getValues();
 
         console.log('maxToken', maxToken);
 
-        if (maxToken > 0) {
+        if (maxToken !== 0) {
             setGenerationConfig({
                 maxNumTokens: maxToken,
             });
         }
 
-        // Packing text and images into an object called message and send it to the api
         try {
-            if (imageParts === undefined || imageParts.length == 0) {
-                const message = {
-                    text: textValue.trim(),
-                };
+            const message: Message = {
+                text: textValue.trim(),
+            };
 
-                void run(message, apikey as string, generationConfig)
-                    .then((response) => {
-                        setResponse(response as string);
-                        setIsLoading(false);
-                        setImageParts([]);
-                    })
-                    .catch((error) => {
-                        setIsLoading(false);
-                        setIsError(true);
-                        setErrorMessage(error.message as string);
-                        throw new Error(error.message as string);
-                    });
-            } else {
-                const message = {
-                    text: textValue.trim(),
-                    imageParts: imageParts,
-                };
-
-                // Take the message object and send it to the api
-                void run(message, apikey as string, generationConfig)
-                    .then((response) => {
-                        if (response.length > 0 && response !== undefined) {
-                            setResponse(response as string);
-                            setIsLoading(false);
-                            setImageParts([]);
-                        }
-                    })
-                    .catch((error) => {
-                        setIsLoading(false);
-                        setIsError(true);
-                        setErrorMessage(error.message as string);
-                        throw new Error(error.message as string);
-                    });
+            if (imageParts.length > 0) {
+                message.imageParts = imageParts;
             }
+
+            void makeTheCall(message, apikey as string, generationConfig);
         } catch (error) {
             console.error(error);
         }
@@ -134,22 +131,18 @@ export default function Body() {
         }
     };
 
-    const getValues = () => {
-        if (localStorage !== undefined) {
-            // Check for configuration settings
-            if (localStorage.getItem('apikey')) {
-                setApikeys(localStorage.getItem('apikey') || '');
-            } else {
-                setApikeys('');
-            }
+    // TODO : Do we need this function since we are using useLocalStorage ?
+    // const getValues = () => {
+    //     if (localStorage !== undefined) {
+    //         if (localStorage.getItem('apikey')) {
+    //             setApikeys(localStorage.getItem('apikey') || '');
+    //         }
 
-            if (localStorage.getItem('token')) {
-                setMaxToken(parseInt(localStorage.getItem('token') || ''));
-            } else {
-                setMaxToken(0);
-            }
-        }
-    };
+    //         if (localStorage.getItem('token')) {
+    //             setMaxToken(parseInt(localStorage.getItem('token') || '0'));
+    //         }
+    //     }
+    // };
 
     // Generation Configuration
     useEffect(() => {

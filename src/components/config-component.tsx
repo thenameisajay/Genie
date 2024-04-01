@@ -65,7 +65,7 @@ export function Configuration() {
                                     setMaxToken(
                                         e.target.value !== ''
                                             ? parseInt(e.target.value)
-                                            : 0,
+                                            : parseInt('0'),
                                     )
                                 }
                                 className="col-span-3"
