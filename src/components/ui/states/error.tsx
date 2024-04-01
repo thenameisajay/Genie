@@ -18,13 +18,13 @@ const errorMessages: Record<number, string> = {
 // End of Hacky way to determine if the error message is a location restricted message
 
 export default function ErrorComponent({ message }: { message: string }) {
-    console.log('message', message);
-
-    const displayMessage =
+    const isLocationRestricted =
         locationErrorMessage.toLocaleLowerCase().trim() ===
-        message.toLocaleLowerCase().trim()
-            ? errorMessages[400]
-            : errorMessages[504];
+        message.toLocaleLowerCase().trim();
+
+    const displayMessage = isLocationRestricted
+        ? errorMessages[400]
+        : errorMessages[504];
 
     return (
         <div className=" mb-2 h-auto  w-64 sm:mx-2 sm:w-auto">
