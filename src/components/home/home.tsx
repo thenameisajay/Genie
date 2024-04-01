@@ -11,16 +11,22 @@ import Notes from '@/components/home/notes';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
-import LoadingComponent from '@/components/ui/loading';
 import ResponseComponent from '@/components/ui/response-component';
+import LoadingComponent from '@/components/ui/states/loading';
 import { Textarea } from '@/components/ui/textarea';
+
+import ErrorComponent from '../ui/states/error';
+
+//TODO : Refactor this component
 
 export default function HomeComponent() {
     const [textValue, setTextValue] = useState<string>('');
     const [imageParts, setImageParts] = useState<Array<object>>([]);
     const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [isError, setIsError] = useState<boolean>(false);
     const [apikeys, setApikeys] = useState<string>('');
     const [response, setResponse] = useState<string>('');
+    const [errorMessage, setErrorMessage] = useState<string>('');
 
     const [maxToken, setMaxToken] = useState<number>(0);
     const [generationConfig, setGenerationConfig] = useState<object>({});
@@ -58,7 +64,6 @@ export default function HomeComponent() {
         console.log('maxToken', maxToken);
 
         if (maxToken > 0) {
-            console.log('This line is getting executed');
             setGenerationConfig({
                 maxNumTokens: maxToken,
             });
@@ -76,7 +81,11 @@ export default function HomeComponent() {
                         setResponse(response as string);
                     })
                     .catch((error) => {
-                        console.log('Error', error);
+                        setIsLoading(false);
+                        setIsError(true);
+                        const { message } = error;
+                        setErrorMessage(message as string);
+                        throw new Error(error as string);
                     });
             } else {
                 const message = {
@@ -93,11 +102,14 @@ export default function HomeComponent() {
                         }
                     })
                     .catch((error) => {
-                        console.log('Error', error);
+                        throw new Error(error as string);
                     });
             }
         } catch (error) {
-            console.log('Failed to send message');
+            setIsLoading(false);
+            setIsError(true);
+            setErrorMessage(error as string);
+            console.error(error);
         } finally {
             setImageParts([]);
             setTextValue('');
@@ -138,8 +150,6 @@ export default function HomeComponent() {
             setGenerationConfig({});
         }
     }, [maxToken, textValue]);
-
-    // TODO: Use react hook form for form handling
 
     return (
         <>
@@ -212,7 +222,11 @@ export default function HomeComponent() {
                             <ResponseComponent response={response} />
                         </>
                     ) : (
-                        !isLoading && <Notes />
+                        !isLoading && !isError && <Notes />
+                    )}
+
+                    {!isLoading && isError && (
+                        <ErrorComponent message={errorMessage} />
                     )}
 
                     <footer className=" relative mx-auto text-center">
