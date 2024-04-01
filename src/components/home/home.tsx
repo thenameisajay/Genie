@@ -1,26 +1,33 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import toast, { Toaster } from 'react-hot-toast';
+import toast from 'react-hot-toast';
 
 import { run } from '@/app/api/gemini';
 import { fileToGenerativePart } from '@/lib/actions';
 import { ArrowBendDownLeft, ArrowCircleUp, Lamp } from '@phosphor-icons/react';
 
+import Notes from '@/components/home/notes';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
-import Notes from '@/components/ui/home/notes';
 import { Input } from '@/components/ui/input';
 import ResponseComponent from '@/components/ui/response-component';
+import LoadingComponent from '@/components/ui/states/loading';
 import { Textarea } from '@/components/ui/textarea';
 
-export default function HomePage() {
+import ErrorComponent from '../ui/states/error';
+
+//TODO : Refactor this component
+
+export default function HomeComponent() {
     const [textValue, setTextValue] = useState<string>('');
     const [imageParts, setImageParts] = useState<Array<object>>([]);
+    const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [isError, setIsError] = useState<boolean>(false);
     const [apikeys, setApikeys] = useState<string>('');
     const [response, setResponse] = useState<string>('');
-    const [loading, setLoading] = useState<boolean>(false);
-    // const [safety, setSafety] = useState<string>("");
+    const [errorMessage, setErrorMessage] = useState<string>('');
+
     const [maxToken, setMaxToken] = useState<number>(0);
     const [generationConfig, setGenerationConfig] = useState<object>({});
 
@@ -28,10 +35,6 @@ export default function HomePage() {
         const fileInput = document.getElementById('picture');
         fileInput?.click();
     };
-
-    useEffect(() => {
-        getValues();
-    }, [textValue, imageParts]);
 
     const getValues = () => {
         if (localStorage !== undefined) {
@@ -52,26 +55,15 @@ export default function HomePage() {
         }
     };
 
-    // Generation Configuration
-    useEffect(() => {
-        if (maxToken > 0) {
-            setGenerationConfig({
-                maxOutputTokens: maxToken,
-            });
-        } else {
-            setGenerationConfig({});
-        }
-    }, [maxToken, textValue]);
-
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+        setIsLoading(true);
         event.preventDefault();
-        setLoading(true);
+        setIsLoading(true);
         getValues();
 
         console.log('maxToken', maxToken);
 
         if (maxToken > 0) {
-            console.log('This line is getting executed');
             setGenerationConfig({
                 maxNumTokens: maxToken,
             });
@@ -89,7 +81,11 @@ export default function HomePage() {
                         setResponse(response as string);
                     })
                     .catch((error) => {
-                        console.log('Error', error);
+                        setIsLoading(false);
+                        setIsError(true);
+                        const { message } = error;
+                        setErrorMessage(message as string);
+                        throw new Error(error as string);
                     });
             } else {
                 const message = {
@@ -102,44 +98,26 @@ export default function HomePage() {
                     .then((response) => {
                         if (response.length > 0 && response !== undefined) {
                             setResponse(response as string);
+                            setIsLoading(false);
                         }
                     })
                     .catch((error) => {
-                        console.log('Error', error);
+                        throw new Error(error as string);
                     });
             }
         } catch (error) {
-            console.log('Failed to send message');
+            setIsLoading(false);
+            setIsError(true);
+            setErrorMessage(error as string);
+            console.error(error);
         } finally {
             setImageParts([]);
             setTextValue('');
-            setLoading(false);
         }
     };
 
     const handleImages = (event: React.ChangeEvent<HTMLInputElement>) => {
-        // Add multiple images at once
         const files = event.target.files;
-
-        //Calculate the size of the images
-        // let totalSize = 0;
-        // for (let i = 0; i < (files?.length ?? 0); i++) {
-        //   if (files && files[i]) {
-        //     totalSize += files[i].size;
-        //   }
-        // }
-
-        // // API only supports 4MB at once
-        // if (totalSize > 4000000) {
-        //   toast.error("Please select images less than 4MB");
-        //   return;
-        // }
-
-        // API only supports 16 images at once
-        // if (files?.length ?? 0 > 16) {
-        //   toast.error("Please select less than 16 images");
-        //   return;
-        // }
 
         if (files && files.length > 0) {
             toast.success(` ${files.length} Files selected`);
@@ -158,9 +136,23 @@ export default function HomePage() {
         }
     };
 
+    useEffect(() => {
+        getValues();
+    }, [textValue, imageParts]);
+
+    // Generation Configuration
+    useEffect(() => {
+        if (maxToken > 0) {
+            setGenerationConfig({
+                maxOutputTokens: maxToken,
+            });
+        } else {
+            setGenerationConfig({});
+        }
+    }, [maxToken, textValue]);
+
     return (
         <>
-            <Toaster />
             <div className="absolute top-20  flex w-dvw flex-col items-center text-center ">
                 <div className=" flex flex-col items-center justify-center">
                     <Lamp size={70} weight="fill" className="mb-5" />
@@ -207,7 +199,7 @@ export default function HomePage() {
                                     <Button
                                         type="submit"
                                         disabled={
-                                            textValue.length === 0 || loading
+                                            textValue.length === 0 || isLoading
                                         }
                                         className="ml-2 h-10 w-10  rounded-full bg-black p-2 dark:bg-white"
                                     >
@@ -223,18 +215,18 @@ export default function HomePage() {
                     </Card>
                 </div>
                 <div className="relative top-16 mx-3 flex  w-auto flex-col items-center justify-center">
-                    {loading && (
-                        <p className="mt-2 animate-pulse text-xl text-muted-foreground">
-                            Generating response...
-                        </p>
-                    )}
+                    {isLoading && !response && <LoadingComponent />}
 
                     {response.length > 0 ? (
                         <>
                             <ResponseComponent response={response} />
                         </>
                     ) : (
-                        <Notes />
+                        !isLoading && !isError && <Notes />
+                    )}
+
+                    {!isLoading && isError && (
+                        <ErrorComponent message={errorMessage} />
                     )}
 
                     <footer className=" relative mx-auto text-center">
