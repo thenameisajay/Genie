@@ -56,7 +56,7 @@ export default function HomeComponent() {
     };
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-        setIsLoading(true);
+        setResponse('');
         event.preventDefault();
         setIsLoading(true);
         getValues();
