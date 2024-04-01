@@ -7,6 +7,7 @@ import { run } from '@/app/api/gemini';
 import { fileToGenerativePart } from '@/lib/actions';
 import { ArrowBendDownLeft, ArrowCircleUp, Lamp } from '@phosphor-icons/react';
 
+import Footer from '@/components/home/footer';
 import Notes from '@/components/home/notes';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
@@ -233,17 +234,7 @@ export default function HomeComponent() {
                         <ErrorComponent message={errorMessage} />
                     )}
 
-                    <footer className=" relative mx-auto text-center">
-                        <p className="leading-7 [&:not(:first-child)]:mt-6">
-                            Crafted with ❤️ by{' '}
-                            <a
-                                className=" font-sans font-semibold text-blue-500"
-                                href="https://github.com/thenameisajay"
-                            >
-                                @thenameisajay
-                            </a>
-                        </p>
-                    </footer>
+                    <Footer />
                 </div>
             </div>
         </>
