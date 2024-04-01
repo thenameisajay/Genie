@@ -19,7 +19,11 @@ export default function RootLayout({
     children: React.ReactNode;
 }) {
     return (
-        <html lang="en" suppressHydrationWarning>
+        <html
+            lang="en"
+            className="min-h-dvh  w-screen "
+            suppressHydrationWarning
+        >
             <head>
                 <link
                     rel="icon"

@@ -10,7 +10,7 @@ import { ThemeToggle } from '@/components/ui/theme-toggle';
 
 export default function Home() {
     return (
-        <main className="flex min-h-dvh w-dvw  flex-col">
+        <main className="flex flex-col">
             <div
                 className="relative right-4 top-4 flex h-full w-full flex-row items-end justify-end text-center "
                 id="components-deck"
