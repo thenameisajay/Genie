@@ -156,86 +156,97 @@ export default function HomeComponent() {
         }
     }, [maxToken, textValue]);
 
+    const StartingComponent = () => {
+        return (
+            <div className=" flex flex-col items-center justify-center">
+                <Lamp size={70} weight="fill" className="mb-5" />
+                <h1 className="flex items-center justify-center text-center text-7xl font-extrabold tracking-tight lg:text-9xl">
+                    Genie
+                </h1>
+                <p className="mt-2 text-xl text-muted-foreground">
+                    A lite version to test Google&apos;s Gemini model.
+                </p>
+            </div>
+        );
+    };
+
+    const MiddleComponent = () => {
+        return (
+            <div className=" relative top-10 h-auto w-auto">
+                <Card className="flex h-auto flex-col items-center justify-center px-2  sm:w-96">
+                    <form onSubmit={handleSubmit}>
+                        <div className="flex w-auto  flex-col items-center  justify-center ">
+                            <Textarea
+                                placeholder=" Ask anything"
+                                value={textValue}
+                                onChange={(e) => setTextValue(e.target.value)}
+                                className="  relative top-2 mb-5 h-16 w-full border-none placeholder:text-base placeholder:font-semibold focus:border-none "
+                            />
+
+                            <div className="mb-3 mr-2 mt-2 flex w-64  flex-row items-end justify-end">
+                                <Button
+                                    className="h-10 w-10  rounded-full bg-amber-900   p-2"
+                                    type="button"
+                                    onClick={handleButtonClick}
+                                >
+                                    <ArrowCircleUp size={25} weight="fill" />
+                                    <Input
+                                        className="ml-2 mr-2"
+                                        id="picture"
+                                        type="file"
+                                        accept="image/jpeg, image/png , image/jpg , image/webp, image/heic , image/heif"
+                                        onChange={handleImages}
+                                        style={{ display: 'none' }}
+                                        multiple
+                                    />
+                                </Button>
+                                <Button
+                                    type="submit"
+                                    disabled={
+                                        textValue.length === 0 || isLoading
+                                    }
+                                    className="ml-2 h-10 w-10  rounded-full bg-black p-2 dark:bg-white"
+                                >
+                                    <ArrowBendDownLeft
+                                        size={25}
+                                        weight="fill"
+                                        className=""
+                                    />
+                                </Button>
+                            </div>
+                        </div>
+                    </form>
+                </Card>
+            </div>
+        );
+    };
+
+    const EndComponent = () => {
+        return (
+            <div className="relative top-16 mx-3 flex  w-auto flex-col items-center justify-center">
+                {isLoading && !response && <LoadingComponent />}
+
+                {response.length > 0 ? (
+                    <>
+                        <ResponseComponent response={response} />
+                    </>
+                ) : (
+                    !isLoading && !isError && <Notes />
+                )}
+
+                {!isLoading && isError && (
+                    <ErrorComponent message={errorMessage} />
+                )}
+                <Footer />
+            </div>
+        );
+    };
+
     return (
         <>
             <div className="absolute top-20  flex w-dvw flex-col items-center text-center ">
-                <div className=" flex flex-col items-center justify-center">
-                    <Lamp size={70} weight="fill" className="mb-5" />
-                    <h1 className="flex items-center justify-center text-center text-7xl font-extrabold tracking-tight lg:text-9xl">
-                        Genie
-                    </h1>
-                    <p className="mt-2 text-xl text-muted-foreground">
-                        A lite version to test Google&apos;s Gemini model.
-                    </p>
-                </div>
-                <div className=" relative top-10 h-auto w-auto">
-                    <Card className="flex h-auto flex-col items-center justify-center px-2  sm:w-96">
-                        <form onSubmit={handleSubmit}>
-                            <div className="flex w-auto  flex-col items-center  justify-center ">
-                                <Textarea
-                                    placeholder=" Ask anything"
-                                    value={textValue}
-                                    onChange={(e) =>
-                                        setTextValue(e.target.value)
-                                    }
-                                    className="  relative top-2 mb-5 h-16 w-full border-none placeholder:text-base placeholder:font-semibold focus:border-none "
-                                />
-
-                                <div className="mb-3 mr-2 mt-2 flex w-64  flex-row items-end justify-end">
-                                    <Button
-                                        className="h-10 w-10  rounded-full bg-amber-900   p-2"
-                                        type="button"
-                                        onClick={handleButtonClick}
-                                    >
-                                        <ArrowCircleUp
-                                            size={25}
-                                            weight="fill"
-                                        />
-                                        <Input
-                                            className="ml-2 mr-2"
-                                            id="picture"
-                                            type="file"
-                                            accept="image/jpeg, image/png , image/jpg , image/webp, image/heic , image/heif"
-                                            onChange={handleImages}
-                                            style={{ display: 'none' }}
-                                            multiple
-                                        />
-                                    </Button>
-                                    <Button
-                                        type="submit"
-                                        disabled={
-                                            textValue.length === 0 || isLoading
-                                        }
-                                        className="ml-2 h-10 w-10  rounded-full bg-black p-2 dark:bg-white"
-                                    >
-                                        <ArrowBendDownLeft
-                                            size={25}
-                                            weight="fill"
-                                            className=""
-                                        />
-                                    </Button>
-                                </div>
-                            </div>
-                        </form>
-                    </Card>
-                </div>
-                <div className="relative top-16 mx-3 flex  w-auto flex-col items-center justify-center">
-                    {isLoading && !response && <LoadingComponent />}
-
-                    {response.length > 0 ? (
-                        <>
-                            <ResponseComponent response={response} />
-                        </>
-                    ) : (
-                        !isLoading && !isError && <Notes />
-                    )}
-
-                    {!isLoading && isError && (
-                        <ErrorComponent message={errorMessage} />
-                    )}
-
-                    <Footer />
-                </div>
+                <StartingComponent />
+                <MiddleComponent />
             </div>
         </>
     );
