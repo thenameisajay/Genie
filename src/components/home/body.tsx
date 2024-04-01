@@ -1,10 +1,14 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
+import type { SubmitHandler } from 'react-hook-form';
+import { Controller, useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 
 import { run } from '@/app/api/gemini';
 import { fileToGenerativePart } from '@/lib/actions';
+import { type InputSchemaType, inputSchema } from '@/schemas/inputSchema';
+import { zodResolver } from '@hookform/resolvers/zod';
 import { ArrowBendDownLeft, ArrowCircleUp } from '@phosphor-icons/react';
 
 import Footer from '@/components/home/footer';
@@ -20,7 +24,6 @@ import { Textarea } from '@/components/ui/textarea';
 //TODO : Use react hook form for forms and useHooks for local storage
 
 export default function Body() {
-    const [textValue, setTextValue] = useState<string>('');
     const [imageParts, setImageParts] = useState<Array<object>>([]);
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [isError, setIsError] = useState<boolean>(false);
@@ -31,13 +34,28 @@ export default function Body() {
     const [maxToken, setMaxToken] = useState<number>(0);
     const [generationConfig, setGenerationConfig] = useState<object>({});
 
+    const {
+        handleSubmit,
+        control,
+        reset,
+        formState: { errors, isValid },
+    } = useForm<InputSchemaType>({
+        resolver: zodResolver(inputSchema),
+        mode: 'onChange',
+        defaultValues: {
+            text: '',
+        },
+    });
+
     const handleButtonClick = () => {
         const fileInput = document.getElementById('picture');
         fileInput?.click();
     };
-    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-        setResponse('');
-        event.preventDefault();
+
+    const onSubmit: SubmitHandler<InputSchemaType> = (
+        data: InputSchemaType,
+    ) => {
+        const textValue = data.text;
         setIsLoading(true);
         getValues();
 
@@ -60,19 +78,15 @@ export default function Body() {
                     .then((response) => {
                         setResponse(response as string);
                         setIsLoading(false);
-
                         setImageParts([]);
-                        setTextValue('');
                     })
                     .catch((error) => {
                         setIsLoading(false);
                         setIsError(true);
-                        const { message } = error;
-                        setErrorMessage(message as string);
-                        throw new Error(error as string);
+                        setErrorMessage(error.message as string);
+                        throw new Error(error.message as string);
                     });
             } else {
-                // TODO : Handle states for image  generaation model
                 const message = {
                     text: textValue.trim(),
                     imageParts: imageParts,
@@ -85,19 +99,20 @@ export default function Body() {
                             setResponse(response as string);
                             setIsLoading(false);
                             setImageParts([]);
-                            setTextValue('');
                         }
                     })
                     .catch((error) => {
-                        throw new Error(error as string);
+                        setIsLoading(false);
+                        setIsError(true);
+                        setErrorMessage(error.message as string);
+                        throw new Error(error.message as string);
                     });
             }
         } catch (error) {
-            setIsLoading(false);
-            setIsError(true);
-            setErrorMessage(error as string);
             console.error(error);
         }
+
+        reset();
     };
 
     const handleImages = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -105,8 +120,6 @@ export default function Body() {
 
         if (files && files.length > 0) {
             toast.success(` ${files.length} Files selected`);
-
-            // Convert to generative parts and store in an array of objects
 
             const generativePart: Array<object> = [];
             for (let i = 0; i < files.length; i++) {
@@ -131,8 +144,6 @@ export default function Body() {
 
             if (localStorage.getItem('token')) {
                 setMaxToken(parseInt(localStorage.getItem('token') || ''));
-
-                // await setSafety(localStorage.getItem("safety") || "");
             } else {
                 setMaxToken(0);
             }
@@ -141,7 +152,7 @@ export default function Body() {
 
     useEffect(() => {
         getValues();
-    }, [textValue, imageParts]);
+    }, [response, imageParts]);
 
     // Generation Configuration
     useEffect(() => {
@@ -152,20 +163,55 @@ export default function Body() {
         } else {
             setGenerationConfig({});
         }
-    }, [maxToken, textValue]);
+    }, [maxToken]);
+
+    const DisplayResponseComponent = () => {
+        return (
+            <div className="relative top-16 mx-3 flex  w-auto flex-col items-center justify-center">
+                {isLoading && !response && <LoadingComponent />}
+
+                {response.length > 0 ? (
+                    <>
+                        <ResponseComponent response={response} />
+                    </>
+                ) : (
+                    !isLoading && !isError && <Notes />
+                )}
+
+                {!isLoading && isError && (
+                    <ErrorComponent message={errorMessage} />
+                )}
+                <Footer />
+            </div>
+        );
+    };
 
     return (
         <>
             <div className=" relative top-10 h-auto w-auto">
                 <Card className="flex h-auto flex-col items-center justify-center px-2  sm:w-96">
-                    <form onSubmit={handleSubmit}>
+                    <form onSubmit={handleSubmit(onSubmit)}>
                         <div className="flex w-auto  flex-col items-center  justify-center ">
-                            <Textarea
-                                placeholder=" Ask anything"
-                                value={textValue}
-                                onChange={(e) => setTextValue(e.target.value)}
-                                className="  relative top-2 mb-5 h-16 w-full border-none placeholder:text-base placeholder:font-semibold focus:border-none "
-                            />
+                            <div className="mt-2">
+                                <Controller
+                                    name="text"
+                                    control={control}
+                                    render={({ field }) => (
+                                        <Textarea
+                                            placeholder=" Ask anything"
+                                            {...field}
+                                            className="  relative top-2 mb-5 h-16 w-full border-none placeholder:text-base placeholder:font-semibold focus:border-none "
+                                        ></Textarea>
+                                    )}
+                                />
+
+                                {errors.text && (
+                                    <p className="text-red-500">
+                                        {errors.text.message}
+                                    </p>
+                                )}
+                            </div>
+
                             <div className="mb-3 mr-2 mt-2 flex w-64  flex-row items-end justify-end">
                                 <Button
                                     className="h-10 w-10  rounded-full bg-amber-900   p-2"
@@ -185,9 +231,7 @@ export default function Body() {
                                 </Button>
                                 <Button
                                     type="submit"
-                                    disabled={
-                                        textValue.length === 0 || isLoading
-                                    }
+                                    disabled={!isValid || isLoading}
                                     className="ml-2 h-10 w-10  rounded-full bg-black p-2 dark:bg-white"
                                 >
                                     <ArrowBendDownLeft
@@ -201,22 +245,7 @@ export default function Body() {
                     </form>
                 </Card>
             </div>
-            <div className="relative top-16 mx-3 flex  w-auto flex-col items-center justify-center">
-                {isLoading && !response && <LoadingComponent />}
-
-                {response.length > 0 ? (
-                    <>
-                        <ResponseComponent response={response} />
-                    </>
-                ) : (
-                    !isLoading && !isError && <Notes />
-                )}
-
-                {!isLoading && isError && (
-                    <ErrorComponent message={errorMessage} />
-                )}
-                <Footer />
-            </div>
+            <DisplayResponseComponent />
         </>
     );
 }
