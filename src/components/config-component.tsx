@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 
-import { GearSix, Sliders } from '@phosphor-icons/react';
+import { GearSix } from '@phosphor-icons/react';
 
 import { Button } from '@/components/ui/button';
 import {
@@ -19,7 +19,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 
 export function Configuration() {
-    const options = ['Safe', 'Moderate', 'Risky'];
+    // const options = ['Safe', 'Moderate', 'Risky'];
 
     const [maxToken, setMaxToken] = useState<number>(0);
 
