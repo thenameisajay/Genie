@@ -10,6 +10,7 @@ import { fileToGenerativePart } from '@/lib/actions';
 import { type InputSchemaType, inputSchema } from '@/schemas/inputSchema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Image as ImagePhosphor, PaperPlaneRight } from '@phosphor-icons/react';
+import { useLocalStorage } from 'usehooks-ts';
 
 import Footer from '@/components/home/footer';
 import Notes from '@/components/home/notes';
@@ -19,20 +20,18 @@ import { Card } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import ErrorComponent from '@/components/ui/states/error';
 import LoadingComponent from '@/components/ui/states/loading';
-import { Textarea } from '@/components/ui/textarea';
 
-//TODO : Use react hook form for forms and useHooks for local storage
-
+//TODO : Use antd for input fields or text values
 export default function Body() {
     const [imageParts, setImageParts] = useState<Array<object>>([]);
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [isError, setIsError] = useState<boolean>(false);
-    const [apikeys, setApikeys] = useState<string>('');
+
     const [response, setResponse] = useState<string>('');
     const [errorMessage, setErrorMessage] = useState<string>('');
-
-    const [maxToken, setMaxToken] = useState<number>(0);
+    const [maxToken, setMaxToken] = useLocalStorage<number>('token', 0);
     const [generationConfig, setGenerationConfig] = useState<object>({});
+    const [apikey, setApikeys] = useLocalStorage<string>('apikey', '');
 
     const {
         handleSubmit,
@@ -57,7 +56,7 @@ export default function Body() {
         data: InputSchemaType,
     ) => {
         setResponse('');
-        const textValue = data.text;
+        const { text: textValue } = data;
         setIsLoading(true);
         getValues();
 
@@ -76,7 +75,7 @@ export default function Body() {
                     text: textValue.trim(),
                 };
 
-                void run(message, apikeys, generationConfig)
+                void run(message, apikey as string, generationConfig)
                     .then((response) => {
                         setResponse(response as string);
                         setIsLoading(false);
@@ -95,7 +94,7 @@ export default function Body() {
                 };
 
                 // Take the message object and send it to the api
-                void run(message, apikeys, generationConfig)
+                void run(message, apikey as string, generationConfig)
                     .then((response) => {
                         if (response.length > 0 && response !== undefined) {
                             setResponse(response as string);
@@ -152,10 +151,6 @@ export default function Body() {
         }
     };
 
-    useEffect(() => {
-        getValues();
-    }, [response, imageParts]);
-
     // Generation Configuration
     useEffect(() => {
         if (maxToken > 0) {
@@ -199,11 +194,11 @@ export default function Body() {
                                     name="text"
                                     control={control}
                                     render={({ field }) => (
-                                        <Textarea
+                                        <Input
                                             placeholder=" Ask anything"
                                             {...field}
                                             className="  relative top-2 mb-5 h-16 w-full border-none placeholder:text-base placeholder:font-semibold focus:border-none "
-                                        ></Textarea>
+                                        />
                                     )}
                                 />
 

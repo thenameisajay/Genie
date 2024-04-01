@@ -1,9 +1,10 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import toast from 'react-hot-toast';
 
 import { GearSix } from '@phosphor-icons/react';
+import { useLocalStorage } from 'usehooks-ts';
 
 import { Button } from '@/components/ui/button';
 import {
@@ -19,40 +20,20 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 
 export function Configuration() {
-    // const options = ['Safe', 'Moderate', 'Risky'];
-
-    const [maxToken, setMaxToken] = useState<number>(0);
-
-    // const [safety, setSafety] = useState<string>("Safe");
-
-    console.log('token', maxToken);
-
-    // console.log("safety", safety);
+    const [maxToken, setMaxToken] = useLocalStorage<number>('token', 0);
 
     function saveSettings() {
-        // Use Local Storage to save the settings and retrieve them in the Home Page , later change it to useContext
-        if (localStorage !== undefined) {
-            localStorage.setItem('token', maxToken.toString());
-            // localStorage.setItem("safety", safety);
-            toast.success('Changes saved successfully!');
-        }
+        setMaxToken(maxToken);
+
+        toast.success('Changes saved successfully!');
     }
 
     function clearSettings() {
-        if (localStorage.getItem('token') || localStorage.getItem('safety')) {
-            localStorage?.removeItem('token');
-            localStorage?.removeItem('safety');
-            // setSafety("Safe");
+        if (maxToken) {
             setMaxToken(0);
             toast.success('Changes cleared successfully!');
         }
     }
-
-    useEffect(() => {
-        if (localStorage.getItem('token')) {
-            setMaxToken(parseInt(localStorage.getItem('token') ?? ''));
-        }
-    }, []);
 
     return (
         <div className="relative top-1 mr-4">
@@ -81,26 +62,15 @@ export function Configuration() {
                                 type="number"
                                 value={maxToken}
                                 onChange={(e) =>
-                                    setMaxToken(parseInt(e.target.value))
+                                    setMaxToken(
+                                        e.target.value !== ''
+                                            ? parseInt(e.target.value)
+                                            : 0,
+                                    )
                                 }
                                 className="col-span-3"
                             />
                         </div>
-                        {/* <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="username" className="text-right">
-                Safety
-              </Label>
-              <select
-                id="safety"
-                className="col-span-3"
-                value={safety}
-                onChange={(e) => setSafety(e.target.value)}
-              >
-                {options.map((option) => (
-                  <option key={option}>{option}</option>
-                ))}
-              </select>
-            </div> */}
                     </div>
                     <DialogFooter>
                         <div className="flex flex-row">

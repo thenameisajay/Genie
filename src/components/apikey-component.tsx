@@ -1,9 +1,9 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 
 import { Key } from '@phosphor-icons/react';
+import { useLocalStorage } from 'usehooks-ts';
 
 import { Button } from '@/components/ui/button';
 import {
@@ -19,30 +19,21 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 
 export function APIKEY() {
-    const [key, setKey] = useState<string>('');
+    const [key, setKey] = useLocalStorage<string>('apikey', '');
 
     function saveSettings() {
-        // Use Local Storage to save the settings and retrieve them in the Home Page , later change it to useContext
-
         if (key !== undefined && key !== null && key !== '') {
-            localStorage.setItem('apikey', key);
+            setKey(key);
             toast.success('KEY saved successfully!');
         }
     }
 
     function clearSettings() {
-        if (localStorage.getItem('apikey')) {
+        if (key) {
             setKey('');
-            localStorage?.removeItem('apikey');
             toast.success('KEY cleared successfully!');
         }
     }
-
-    useEffect(() => {
-        if (localStorage.getItem('apikey')) {
-            setKey(localStorage.getItem('apikey') || '');
-        }
-    }, []);
 
     return (
         <div className="relative top-1 mr-4">
