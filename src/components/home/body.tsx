@@ -237,7 +237,6 @@ export default function Body() {
                                     <ArrowBendDownLeft
                                         size={25}
                                         weight="fill"
-                                        className=""
                                     />
                                 </Button>
                             </div>
