@@ -37,6 +37,7 @@ export default function Body() {
     const {
         handleSubmit,
         control,
+
         reset,
         formState: { errors, isValid },
     } = useForm<InputSchemaType>({
@@ -55,6 +56,7 @@ export default function Body() {
     const onSubmit: SubmitHandler<InputSchemaType> = (
         data: InputSchemaType,
     ) => {
+        setResponse('');
         const textValue = data.text;
         setIsLoading(true);
         getValues();
