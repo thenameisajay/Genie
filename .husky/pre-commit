@@ -4,15 +4,15 @@
 echo '🏗️👷 Styling, testing and building your project before committing'
 
 # Check Prettier standards
-yarn check-format ||
+npm run check-format ||
 (
     echo '🤢🤮🤢🤮 Its FOKING RAW - Your styling looks disgusting. 🤢🤮🤢🤮
-            Prettier Check Failed. Run  yarn format, add changes and try commit again.';
+            Prettier Check Failed. Run  npm run format, add changes and try commit again.';
     false;
 )
 
 # Check ESLint Standards
-yarn lint ||
+npm run lint ||
 (
         echo '😤🏀👋😤 Get that weak shit out of here! 😤🏀👋😤 
                 ESLint Check Failed. Make the required changes listed above, add changes and try to commit again.'
@@ -20,7 +20,7 @@ yarn lint ||
 )
 
 # Check tsconfig standards
-yarn check-types ||
+npm run check-types ||
 (
     echo '🤡😂❌🤡 Failed Type check. 🤡😂❌🤡
             Are you seriously trying to write that? Make the changes required above.'
@@ -30,7 +30,7 @@ yarn check-types ||
 # If everything passes... Now we can commit - commented this code to be optional too much time
 # echo '🤔🤔🤔🤔... Alright.... Code looks good to me... Trying to build now. 🤔🤔🤔🤔'
 
-# yarn build ||
+# npm run build ||
 # (
 #     echo '❌👷🔨❌ Better call Bob... Because your build failed ❌👷🔨❌
 #             Next build failed: View the errors above to see why. 
