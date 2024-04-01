@@ -2,7 +2,7 @@
 
 ## Deployment
 
-The app is currently deployed on Vercel: https://genie-rho.vercel.app/
+The app is currently deployed on Vercel: genie-gemini.vercel.app/
 
 ## Features:
 
