@@ -34,25 +34,6 @@ export default function Body() {
     const [generationConfig, setGenerationConfig] = useState<object>({});
     const [apikey] = useLocalStorage<string>('apikey', '');
 
-    const {
-        handleSubmit,
-        control,
-
-        reset,
-        formState: { errors, isValid },
-    } = useForm<InputSchemaType>({
-        resolver: zodResolver(inputSchema),
-        mode: 'onChange',
-        defaultValues: {
-            text: '',
-        },
-    });
-
-    const handleButtonClick = () => {
-        const fileInput = document.getElementById('picture');
-        fileInput?.click();
-    };
-
     const settledState = (response: string) => {
         setResponse(response);
         setIsLoading(false);
@@ -63,6 +44,13 @@ export default function Body() {
         setErrorMessage(message);
         setIsLoading(false);
         setIsError(true);
+    };
+
+    const initialStateApi = async () => {
+        setIsError(false);
+        setErrorMessage('');
+        setResponse('');
+        setIsLoading(true);
     };
 
     const makeTheCall = async (
@@ -80,15 +68,30 @@ export default function Body() {
             });
     };
 
-    const onSubmit: SubmitHandler<InputSchemaType> = (
+    const {
+        handleSubmit,
+        control,
+        reset,
+        formState: { errors, isValid },
+    } = useForm<InputSchemaType>({
+        resolver: zodResolver(inputSchema),
+        mode: 'onChange',
+        defaultValues: {
+            text: '',
+        },
+    });
+
+    //TODO : Hacky way to open file dialog
+    const handleImageButtonUpload = () => {
+        const fileInput = document.getElementById('picture');
+        fileInput?.click();
+    };
+
+    const onSubmit: SubmitHandler<InputSchemaType> = async (
         data: InputSchemaType,
     ) => {
-        setResponse('');
+        await initialStateApi();
         const { text: textValue } = data;
-        setIsLoading(true);
-        // getValues();
-
-        console.log('maxToken', maxToken);
 
         if (maxToken !== 0) {
             setGenerationConfig({
@@ -104,45 +107,45 @@ export default function Body() {
             if (imageParts.length > 0) {
                 message.imageParts = imageParts;
             }
-
-            void makeTheCall(message, apikey as string, generationConfig);
+            await makeTheCall(message, apikey as string, generationConfig);
         } catch (error) {
             console.error(error);
+        } finally {
+            reset();
         }
-
-        reset();
     };
 
-    const handleImages = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const handleImages = async (event: React.ChangeEvent<HTMLInputElement>) => {
         const files = event.target.files;
 
         if (files && files.length > 0) {
             toast.success(` ${files.length} Files selected`);
 
-            const generativePart: Array<object> = [];
-            for (let i = 0; i < files.length; i++) {
-                void fileToGenerativePart(files[i]).then((base64Image) => {
-                    generativePart.push(base64Image);
-                    setImageParts(generativePart);
-                });
+            try {
+                const generativePart: Array<object> = [];
+
+                const fileLength = files.length;
+
+                for (
+                    let fileNumber = 0;
+                    fileNumber < fileLength;
+                    fileNumber++
+                ) {
+                    await fileToGenerativePart(files[fileNumber]).then(
+                        (base64Image) => {
+                            generativePart.push(base64Image);
+                            setImageParts(generativePart);
+                        },
+                    );
+                }
+            } catch (error) {
+                console.error(error);
+                toast.error(error as string);
             }
         } else {
             toast.error('No files selected');
         }
     };
-
-    // TODO : Do we need this function since we are using useLocalStorage ?
-    // const getValues = () => {
-    //     if (localStorage !== undefined) {
-    //         if (localStorage.getItem('apikey')) {
-    //             setApikeys(localStorage.getItem('apikey') || '');
-    //         }
-
-    //         if (localStorage.getItem('token')) {
-    //             setMaxToken(parseInt(localStorage.getItem('token') || '0'));
-    //         }
-    //     }
-    // };
 
     // Generation Configuration
     useEffect(() => {
@@ -206,7 +209,7 @@ export default function Body() {
                                 <Button
                                     className="h-10 w-10  rounded-full bg-blue-500  p-2"
                                     type="button"
-                                    onClick={handleButtonClick}
+                                    onClick={handleImageButtonUpload}
                                 >
                                     <ImagePhosphor size={25} weight="fill" />
                                     <Input

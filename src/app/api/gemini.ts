@@ -11,11 +11,6 @@ export async function run(
 
     const modelsAvailable = ['gemini-pro', 'gemini-pro-vision'];
 
-    function selectModel(message: object, modelsAvailable: Array<string>) {
-        const messageSize = Object.keys(message).length;
-        return messageSize === 1 ? modelsAvailable[0] : modelsAvailable[1];
-    }
-
     const isGenerationConfigPresent =
         generationConfig && Object.keys(generationConfig).length > 0;
 
@@ -41,4 +36,9 @@ export async function run(
     const text = response?.text();
 
     return text;
+}
+
+function selectModel(message: object, modelsAvailable: Array<string>) {
+    const messageSize = Object.keys(message).length;
+    return messageSize === 1 ? modelsAvailable[0] : modelsAvailable[1];
 }
